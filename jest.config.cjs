@@ -7,7 +7,8 @@ module.exports = {
   moduleFileExtensions: ["ts", "js", "json"],
   moduleNameMapper: {
     "^\\.\\./\\.\\./src/(.*)\\.js$": "<rootDir>/src/$1.ts",
-    "^\\./(plugins|routes)/(.*)\\.js$": "<rootDir>/src/$1/$2.ts",
+    "^\\.\\./(schemas)/(.*)\\.js$": "<rootDir>/src/$1/$2.ts",
+    "^\\./(plugins|routes|schemas)/(.*)\\.js$": "<rootDir>/src/$1/$2.ts",
   },
   passWithNoTests: true,
   testEnvironment: "node",

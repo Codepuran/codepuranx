@@ -1,6 +1,26 @@
+import type { ErrorObject } from "ajv";
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-type ErrorResponse = { error: { code: string; message: string; requestId: string; statusCode: number } };
+type ErrorDetail = { instancePath?: string; keyword?: string; message?: string; schemaPath?: string };
+
+type ErrorResponse = {
+  error: { code: string; details?: ErrorDetail[]; message: string; requestId: string; statusCode: number };
+};
+
+const validationDetails = (validation: FastifyError["validation"]): ErrorDetail[] | undefined => {
+  if (!validation || validation.length === 0) {
+    return undefined;
+  }
+
+  return validation.map((issue: ErrorObject) => {
+    return {
+      instancePath: issue.instancePath,
+      keyword: issue.keyword,
+      ...(issue.message ? { message: issue.message } : {}),
+      schemaPath: issue.schemaPath,
+    };
+  });
+};
 
 const statusCodeFromError = (error: FastifyError): number => {
   if (typeof error.statusCode === "number" && error.statusCode >= 400) {
@@ -39,9 +59,12 @@ const sendError = (
   reply: FastifyReply,
   statusCode: number,
   code: string,
-  message: string
+  message: string,
+  details?: ErrorDetail[]
 ): void => {
-  const payload: ErrorResponse = { error: { code, message, requestId: request.id, statusCode } };
+  const payload: ErrorResponse = {
+    error: { code, ...(details ? { details } : {}), message, requestId: request.id, statusCode },
+  };
 
   reply.code(statusCode).send(payload);
 };
@@ -52,6 +75,7 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
     const statusCode = statusCodeFromError(fastifyError);
     const code = codeFromError(fastifyError, statusCode);
     const message = messageFromError(fastifyError, statusCode);
+    const details = validationDetails(fastifyError.validation);
 
     if (statusCode >= 500) {
       request.log.error({ error }, "request failed");
@@ -59,7 +83,7 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
       request.log.info({ error }, "request rejected");
     }
 
-    sendError(request, reply, statusCode, code, message);
+    sendError(request, reply, statusCode, code, message, details);
   });
 
   app.setNotFoundHandler((request, reply) => {

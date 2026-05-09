@@ -104,11 +104,11 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 5.1 | Add request validation mechanism | TODO | P0 | 1.7, 3.1 | Routes validate body, params, query |
-| 5.2 | Add response schema strategy | TODO | P1 | 1.7, 5.1 | Key responses have schemas |
-| 5.3 | Standardize validation error format | TODO | P0 | 3.5, 5.1 | Invalid requests return predictable errors |
-| 5.4 | Decide schema-to-type workflow | TODO | P1 | 1.7 | Types do not drift from schemas |
-| 5.5 | Add common reusable schema primitives | TODO | P2 | 5.1 | IDs, timestamps, pagination schemas exist |
+| 5.1 | Add request validation mechanism | DONE | P0 | 1.7, 3.1 | Fastify JSON Schema validation is active for params and ready for body/query schemas |
+| 5.2 | Add response schema strategy | DONE | P1 | 1.7, 5.1 | Health and API info routes use exported response schemas |
+| 5.3 | Standardize validation error format | DONE | P0 | 3.5, 5.1 | Validation failures return `VALIDATION_ERROR` with requestId, statusCode, and details |
+| 5.4 | Decide schema-to-type workflow | DONE | P1 | 1.7 | Use `json-schema-to-ts` to infer TypeScript types from JSON Schema |
+| 5.5 | Add common reusable schema primitives | DONE | P2 | 5.1 | Common ID params, pagination query, timestamp, and error response schemas exist |
 
 ## Phase 6: DynamoDB Foundation
 

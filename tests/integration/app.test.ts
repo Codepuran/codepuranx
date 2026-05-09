@@ -45,4 +45,19 @@ describe("Fastify app foundation", () => {
 
     await app.close();
   });
+
+  it("returns a consistent validation error response", async () => {
+    const app = await buildApp();
+
+    const invalidResponse = await app.inject({ method: "GET", url: "/api/v1/validation-check/%20" });
+    const invalidBody = invalidResponse.json();
+
+    expect(invalidResponse.statusCode).toBe(400);
+    expect(invalidBody).toMatchObject({ error: { code: "VALIDATION_ERROR", statusCode: 400 } });
+    expect(invalidBody.error.details).toEqual(
+      expect.arrayContaining([expect.objectContaining({ keyword: "pattern", message: expect.any(String) })])
+    );
+
+    await app.close();
+  });
 });
