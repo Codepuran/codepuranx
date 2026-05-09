@@ -4,7 +4,7 @@ This repository is being migrated into an Nx monorepo for the Fastify backend, f
 
 Current app:
 
-- `backend`: Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.
+- `apps/backend`: Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.
 
 Common workspace commands:
 

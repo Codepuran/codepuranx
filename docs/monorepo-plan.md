@@ -115,16 +115,16 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 3.1 | Create `apps/backend` directory | TODO | P0 | 2.3 | Backend app folder exists |
-| 3.2 | Move `src` into `apps/backend/src` | TODO | P0 | 3.1 | Backend source imports still resolve after move |
-| 3.3 | Move `tests` into `apps/backend/tests` | TODO | P1 | 3.1 | Unit and integration tests remain colocated with backend project |
-| 3.4 | Move backend scripts into `apps/backend/scripts` | TODO | P1 | 3.1 | DynamoDB check/setup scripts live under backend ownership |
-| 3.5 | Move backend environment example into `apps/backend/.env.example` | TODO | P1 | 3.1 | Backend env vars are documented with the backend app |
-| 3.6 | Move backend-specific Jest config into `apps/backend/jest.config.cjs` | TODO | P1 | 3.3 | Jest config paths point at backend `src` and `tests` |
-| 3.7 | Move backend-specific TypeScript config into `apps/backend/tsconfig.json` | TODO | P0 | 2.5, 3.2 | Backend config extends root `tsconfig.base.json` |
-| 3.8 | Add backend package metadata | TODO | P0 | 3.1 | `apps/backend/package.json` identifies backend app and local scripts if useful |
-| 3.9 | Add backend Nx project config | TODO | P0 | 2.2, 3.8 | `apps/backend/project.json` defines build, serve, test, lint, typecheck, and DynamoDB targets |
-| 3.10 | Remove stale root app paths | TODO | P0 | 3.2, 3.3, 3.4 | Root no longer has backend-owned `src`, `tests`, or `scripts` directories |
+| 3.1 | Create `apps/backend` directory | DONE | P0 | 2.3 | Backend app folder exists |
+| 3.2 | Move `src` into `apps/backend/src` | DONE | P0 | 3.1 | Backend source imports still resolve after move; Nx typecheck and tests pass |
+| 3.3 | Move `tests` into `apps/backend/tests` | DONE | P1 | 3.1 | Unit and integration tests remain colocated with backend project and pass through Nx |
+| 3.4 | Move backend scripts into `apps/backend/scripts` | DONE | P1 | 3.1 | DynamoDB check/setup scripts live under backend ownership and Nx targets point to the new paths |
+| 3.5 | Move backend environment example into `apps/backend/.env.example` | DONE | P1 | 3.1 | Backend env vars are documented with the backend app |
+| 3.6 | Move backend-specific Jest config into `apps/backend/jest.config.cjs` | DONE | P1 | 3.3 | Jest config paths point at backend `src` and `tests`; `npm test` passes |
+| 3.7 | Move backend-specific TypeScript config into `apps/backend/tsconfig.json` | DONE | P0 | 2.5, 3.2 | Backend config extends root `tsconfig.base.json`; `npm run typecheck` passes |
+| 3.8 | Add backend package metadata | DONE | P0 | 3.1 | `apps/backend/package.json` identifies the backend workspace package |
+| 3.9 | Add backend Nx project config | DONE | P0 | 2.2, 3.8 | `apps/backend/project.json` defines build, serve, test, lint, typecheck, and DynamoDB targets |
+| 3.10 | Remove stale root app paths | DONE | P0 | 3.2, 3.3, 3.4 | Root no longer has backend-owned `src`, `tests`, or `scripts` directories |
 
 ## Phase 4: Build, Serve, And Runtime Targets
 

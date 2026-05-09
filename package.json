@@ -4,7 +4,6 @@
   "private": true,
   "description": "This repository will contain a Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.",
   "type": "module",
-  "main": "dist/server.js",
   "directories": { "doc": "docs" },
   "workspaces": ["apps/*"],
   "scripts": {
@@ -48,22 +47,5 @@
     "nx": "^22.7.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
-  },
-  "nx": {
-    "name": "backend",
-    "targets": {
-      "build": {
-        "command": "swc src -d dist --copy-files --strip-leading-paths --delete-dir-on-start",
-        "outputs": ["{workspaceRoot}/dist"]
-      },
-      "dynamo-check": { "command": "tsx scripts/dynamo-check.ts" },
-      "dynamo-setup": { "command": "tsx scripts/dynamo-setup.ts" },
-      "lint": { "command": "biome check ." },
-      "serve": { "command": "tsx watch src/server.ts" },
-      "start": { "command": "node dist/server.js", "dependsOn": ["build"] },
-      "test": { "command": "jest --runInBand", "outputs": ["{workspaceRoot}/coverage"] },
-      "test-coverage": { "command": "jest --runInBand --coverage", "outputs": ["{workspaceRoot}/coverage"] },
-      "typecheck": { "command": "tsc --noEmit" }
-    }
   }
 }

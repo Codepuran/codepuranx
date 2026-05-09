@@ -1,6 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": { "outDir": "dist", "rootDir": ".", "types": ["node", "jest"] },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "jest.config.cjs"],
-  "exclude": ["dist", "node_modules"]
-}

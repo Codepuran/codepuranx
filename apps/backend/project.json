@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "projectType": "application",
+  "root": "apps/backend",
+  "sourceRoot": "apps/backend/src",
+  "targets": {
+    "build": {
+      "command": "swc apps/backend/src -d dist/apps/backend --copy-files --strip-leading-paths --delete-dir-on-start --config-file apps/backend/.swcrc",
+      "outputs": ["{workspaceRoot}/dist/apps/backend"]
+    },
+    "dynamo-check": { "command": "tsx apps/backend/scripts/dynamo-check.ts" },
+    "dynamo-setup": { "command": "tsx apps/backend/scripts/dynamo-setup.ts" },
+    "lint": { "command": "biome check apps/backend" },
+    "serve": { "command": "tsx watch apps/backend/src/server.ts" },
+    "start": { "command": "node dist/apps/backend/server.js", "dependsOn": ["build"] },
+    "test": {
+      "command": "jest --config apps/backend/jest.config.cjs --runInBand",
+      "outputs": ["{workspaceRoot}/coverage/apps/backend"]
+    },
+    "test-coverage": {
+      "command": "jest --config apps/backend/jest.config.cjs --runInBand --coverage",
+      "outputs": ["{workspaceRoot}/coverage/apps/backend"]
+    },
+    "typecheck": { "command": "tsc --project apps/backend/tsconfig.json --noEmit" }
+  }
+}

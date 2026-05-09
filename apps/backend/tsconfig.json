@@ -1,0 +1,6 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "outDir": "../../dist/apps/backend", "rootDir": ".", "types": ["node", "jest"] },
+  "include": ["src/**/*.ts", "tests/**/*.ts", "jest.config.cjs"],
+  "exclude": ["../../dist", "node_modules"]
+}

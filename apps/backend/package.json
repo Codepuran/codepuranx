@@ -1,0 +1,7 @@
+{
+  "name": "@codepuranx/backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "../../dist/apps/backend/server.js"
+}
