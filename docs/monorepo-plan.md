@@ -51,7 +51,7 @@ The first migration target should be:
 ├── nx.json
 ├── package.json
 ├── package-lock.json
-├── tsconfig.base.json
+├── tsconfig.base.json          # shared TypeScript strictness defaults only
 ├── biome.json
 └── README.md
 ```
@@ -107,7 +107,7 @@ Future app locations:
 | 2.2 | Add `nx.json` | DONE | P0 | 2.1 | Nx workspace config exists with named inputs and cacheable target defaults |
 | 2.3 | Add npm workspaces | DONE | P0 | 1.3 | Root `package.json` includes `workspaces: ["apps/*"]` and is marked private |
 | 2.4 | Convert root package scripts to workspace orchestration | DONE | P0 | 2.2, 2.3 | Root scripts call Nx targets for backend build, test, lint, typecheck, serve, start, and DynamoDB helpers |
-| 2.5 | Add `tsconfig.base.json` | DONE | P0 | 1.5 | Shared TypeScript compiler defaults live at the root and current `tsconfig.json` extends them |
+| 2.5 | Add `tsconfig.base.json` | DONE | P0 | 1.5 | Shared TypeScript strictness defaults live at the root; app runtime/compiler environment stays app-owned |
 | 2.6 | Keep Biome as the workspace formatter/linter | DONE | P1 | Existing project decision | Root `biome.json` remains the workspace formatter/linter configuration |
 | 2.7 | Keep root README workspace-oriented | DONE | P2 | 2.4 | README describes monorepo commands and links backend docs/plans |
 
@@ -121,7 +121,7 @@ Future app locations:
 | 3.4 | Move backend scripts into `apps/backend/scripts` | DONE | P1 | 3.1 | DynamoDB check/setup scripts live under backend ownership and Nx targets point to the new paths |
 | 3.5 | Move backend environment example into `apps/backend/.env.example` | DONE | P1 | 3.1 | Backend env vars are documented with the backend app |
 | 3.6 | Move backend-specific Jest config into `apps/backend/jest.config.cjs` | DONE | P1 | 3.3 | Jest config paths point at backend `src` and `tests`; `npm test` passes |
-| 3.7 | Move backend-specific TypeScript config into `apps/backend/tsconfig.json` | DONE | P0 | 2.5, 3.2 | Backend config extends root `tsconfig.base.json`; `npm run typecheck` passes |
+| 3.7 | Move backend-specific TypeScript config into `apps/backend/tsconfig.json` | DONE | P0 | 2.5, 3.2 | Backend config owns NodeNext, ES2024, declarations, source maps, and output paths while extending root strictness defaults; `npm run typecheck` passes |
 | 3.8 | Add backend package metadata | DONE | P0 | 3.1 | `apps/backend/package.json` identifies the backend workspace package |
 | 3.9 | Add backend Nx project config | DONE | P0 | 2.2, 3.8 | `apps/backend/project.json` defines build, serve, test, lint, typecheck, and DynamoDB targets |
 | 3.10 | Remove stale root app paths | DONE | P0 | 3.2, 3.3, 3.4 | Root no longer has backend-owned `src`, `tests`, or `scripts` directories |
