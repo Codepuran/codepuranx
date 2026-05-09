@@ -12,6 +12,8 @@ module.exports = {
     '^\\./(clock|records)\\.js$': '<rootDir>/src/repositories/$1.ts',
     '^\\./(errors|repository-errors|role-service|todo-service|user-service)\\.js$': '<rootDir>/src/services/$1.ts',
     '^\\./(plugins|routes|schemas)/(.*)\\.js$': '<rootDir>/src/$1/$2.ts',
+    '^\\./(api|common|health|role|todo|user)\\.js$': '<rootDir>/src/schemas/$1.ts',
+    '^\\./(roles|todos|users)\\.js$': '<rootDir>/src/routes/$1.ts',
   },
   passWithNoTests: true,
   testEnvironment: 'node',

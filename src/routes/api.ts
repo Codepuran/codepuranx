@@ -1,6 +1,9 @@
 import type { FastifyPluginAsync } from 'fastify';
 import { type ApiInfoResponse, apiInfoResponseSchema } from '../schemas/api.js';
 import { type IdParams, idParamSchema } from '../schemas/common.js';
+import { registerRoleRoutes } from './roles.js';
+import { registerTodoRoutes } from './todos.js';
+import { registerUserRoutes } from './users.js';
 
 export const registerApiRoutes: FastifyPluginAsync = async (app) => {
   app.get('/', { schema: { response: { 200: apiInfoResponseSchema } } }, async (): Promise<ApiInfoResponse> => {
@@ -26,4 +29,8 @@ export const registerApiRoutes: FastifyPluginAsync = async (app) => {
       return { id: request.params.id };
     }
   );
+
+  await app.register(registerUserRoutes);
+  await app.register(registerRoleRoutes);
+  await app.register(registerTodoRoutes);
 };

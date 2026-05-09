@@ -168,16 +168,16 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 10.1 | Create route/controller structure | TODO | P1 | 1.5, 3.9, 8.1 | Route files follow chosen pattern |
-| 10.2 | Add Todo create route | TODO | P1 | 5.1, 8.3, 10.1 | `POST /todos` works |
-| 10.3 | Add Todo get route | TODO | P1 | 5.1, 8.3, 10.1 | `GET /todos/:id` works |
-| 10.4 | Add Todo list route | TODO | P1 | 5.1, 8.3, 10.1 | `GET /todos` works with pagination if needed |
-| 10.5 | Add Todo update route | TODO | P1 | 5.1, 8.3, 10.1 | `PATCH` or `PUT /todos/:id` works |
-| 10.6 | Add Todo delete route | TODO | P1 | 5.1, 8.3, 10.1 | `DELETE /todos/:id` works |
-| 10.7 | Add User CRUD routes | TODO | P1 | 5.1, 8.4, 10.1 | User CRUD works |
-| 10.8 | Add Role CRUD routes | TODO | P1 | 5.1, 8.5, 10.1 | Role CRUD works |
-| 10.9 | Standardize success response shapes | TODO | P1 | 10.2 | Responses are consistent |
-| 10.10 | Ensure route-level schemas are complete | TODO | P1 | 10.2, 10.7, 10.8 | Body, params, query, response schemas exist |
+| 10.1 | Create route/controller structure | DONE | P1 | 1.5, 3.9, 8.1 | `routes/users.ts`, `routes/roles.ts`, and `routes/todos.ts` register under `/api/v1` |
+| 10.2 | Add Todo create route | DONE | P1 | 5.1, 8.3, 10.1 | `POST /users/:userId/todos` creates a todo with a server-generated id |
+| 10.3 | Add Todo get route | DONE | P1 | 5.1, 8.3, 10.1 | `GET /users/:userId/todos/:todoId` returns one todo |
+| 10.4 | Add Todo list route | DONE | P1 | 5.1, 8.3, 10.1 | `GET /users/:userId/todos` lists todos for one user with cursor pagination |
+| 10.5 | Add Todo update route | DONE | P1 | 5.1, 8.3, 10.1 | `PATCH /users/:userId/todos/:todoId` updates one todo |
+| 10.6 | Add Todo delete route | DONE | P1 | 5.1, 8.3, 10.1 | `DELETE /users/:userId/todos/:todoId` returns `204` |
+| 10.7 | Add User CRUD routes | DONE | P1 | 5.1, 8.4, 10.1 | User create/get/update/delete routes exist; no list route because no scans/GSIs |
+| 10.8 | Add Role CRUD routes | DONE | P1 | 5.1, 8.5, 10.1 | Role create/get/update/delete routes exist; no list route because no scans/GSIs |
+| 10.9 | Standardize success response shapes | DONE | P1 | 10.2 | Create returns `201`, reads/updates return resource JSON, deletes return `204` |
+| 10.10 | Ensure route-level schemas are complete | DONE | P1 | 10.2, 10.7, 10.8 | Body, params, query, and response schemas exist for CRUD routes |
 
 ## Phase 11: Lambda Readiness
 
