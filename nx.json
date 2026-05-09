@@ -20,5 +20,6 @@
     "test": { "cache": true, "inputs": ["default", "^production"] },
     "test-coverage": { "cache": true, "inputs": ["default", "^production"] },
     "typecheck": { "cache": true, "inputs": ["production", "^production"] }
-  }
+  },
+  "analytics": false
 }

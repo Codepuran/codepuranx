@@ -2,7 +2,7 @@
 module.exports = {
   clearMocks: true,
   collectCoverageFrom: ['src/**/*.ts'],
-  coverageDirectory: 'coverage',
+  coverageDirectory: '../../coverage/apps/backend',
   extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: {

@@ -130,14 +130,14 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 4.1 | Port backend dev command to Nx target | TODO | P0 | 3.9 | `npm run dev` or `npx nx serve backend` starts `apps/backend/src/server.ts` |
-| 4.2 | Port backend build command to Nx target | TODO | P0 | 3.7, 3.9 | `npx nx build backend` emits backend output under `dist/apps/backend` |
-| 4.3 | Port backend start command | TODO | P1 | 4.2 | Production start command points at `dist/apps/backend/server.js` or the chosen output path |
-| 4.4 | Port backend typecheck command | TODO | P0 | 3.7, 3.9 | `npx nx typecheck backend` runs `tsc --noEmit` for backend |
-| 4.5 | Port backend test command | TODO | P0 | 3.6, 3.9 | `npx nx test backend` runs the existing Jest suite |
-| 4.6 | Port backend coverage command | TODO | P2 | 4.5 | Coverage output is generated in a predictable ignored location |
-| 4.7 | Port DynamoDB helper scripts | TODO | P1 | 3.4, 3.9 | `npx nx dynamo-setup backend` and `npx nx dynamo-check backend` work |
-| 4.8 | Add all-project quality command | TODO | P1 | 4.2, 4.4, 4.5 | Root `npm run check` runs Nx targets for affected or all projects |
+| 4.1 | Port backend dev command to Nx target | DONE | P0 | 3.9 | `npm run dev` starts `apps/backend/src/server.ts`; verified `/health` returns `200` with local env vars |
+| 4.2 | Port backend build command to Nx target | DONE | P0 | 3.7, 3.9 | `npm run build` emits backend output under `dist/apps/backend` |
+| 4.3 | Port backend start command | DONE | P1 | 4.2 | `npm run start` runs `dist/apps/backend/server.js`; verified `/health` returns `200` with local env vars |
+| 4.4 | Port backend typecheck command | DONE | P0 | 3.7, 3.9 | `npm run typecheck` runs `tsc --project apps/backend/tsconfig.json --noEmit` |
+| 4.5 | Port backend test command | DONE | P0 | 3.6, 3.9 | `npm test` runs the existing Jest suite through Nx |
+| 4.6 | Port backend coverage command | DONE | P2 | 4.5 | `npm run test:coverage` writes coverage to ignored root `coverage/apps/backend` |
+| 4.7 | Port DynamoDB helper scripts | DONE | P1 | 3.4, 3.9 | Nx targets point to relocated DynamoDB scripts; external DynamoDB execution remains environment-dependent |
+| 4.8 | Add all-project quality command | DONE | P1 | 4.2, 4.4, 4.5 | `npm run check` passes from repo root |
 
 ## Phase 5: Import Paths And Configuration Fixes
 

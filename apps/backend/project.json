@@ -5,7 +5,7 @@
   "sourceRoot": "apps/backend/src",
   "targets": {
     "build": {
-      "command": "swc apps/backend/src -d dist/apps/backend --copy-files --strip-leading-paths --delete-dir-on-start --config-file apps/backend/.swcrc",
+      "command": "cd apps/backend && swc src -d ../../dist/apps/backend --copy-files --strip-leading-paths --delete-dir-on-start --config-file .swcrc",
       "outputs": ["{workspaceRoot}/dist/apps/backend"]
     },
     "dynamo-check": { "command": "tsx apps/backend/scripts/dynamo-check.ts" },
