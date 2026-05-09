@@ -1,4 +1,5 @@
 import { buildApp } from '../../src/app.js';
+import { testConfig } from '../helpers/app-test-dependencies.js';
 
 describe('Fastify app foundation', () => {
   it('builds the app without listening on a port', async () => {
@@ -41,6 +42,37 @@ describe('Fastify app foundation', () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual({ name: 'codepuranx-api', version: 'v1' });
+
+    await app.close();
+  });
+
+  it('serves generated OpenAPI docs when config is provided', async () => {
+    const app = await buildApp({ config: testConfig });
+
+    const response = await app.inject({ method: 'GET', url: '/docs/json' });
+    const body = response.json();
+
+    expect(response.statusCode).toBe(200);
+    expect(body.openapi).toBe('3.0.3');
+    expect(body.info.title).toBe('Codepuranx API');
+    expect(body.servers).toEqual([{ description: 'test same-origin server', url: '/' }]);
+    expect(body.paths).toHaveProperty('/health');
+    expect(body.paths).toHaveProperty('/api/v1/users');
+    expect(body.paths).toHaveProperty('/api/v1/users/{userId}/todos');
+
+    await app.close();
+  });
+
+  it('serves Swagger UI with its own content security policy', async () => {
+    const app = await buildApp({ config: testConfig });
+
+    const response = await app.inject({ method: 'GET', url: '/docs' });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.headers['content-security-policy']).toContain('style-src');
+    expect(response.headers['content-security-policy']).toContain("'unsafe-inline'");
+    expect(response.headers['content-security-policy']).toContain("connect-src 'self'");
+    expect(response.headers['content-type']).toContain('text/html');
 
     await app.close();
   });

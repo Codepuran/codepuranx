@@ -227,7 +227,7 @@ These decisions should be made before scaffolding so the first implementation do
 | 14.2 | Add local DynamoDB instructions | DEFERRED | P1 | 6.5 | Deferred until after local CRUD/manual testing |
 | 14.3 | Add sample request collection or curl examples | DEFERRED | P2 | 10.2, 10.7, 10.8 | Deferred until after local CRUD/manual testing |
 | 14.4 | Add seed/sample data command if useful | DEFERRED | P2 | 7.6, 7.7, 7.8 | Deferred until after local CRUD/manual testing |
-| 14.5 | Add OpenAPI generation if included | DEFERRED | P2 | 1.15, 10.10 | Deferred until after local CRUD/manual testing |
+| 14.5 | Add OpenAPI generation if included | DONE | P2 | 1.15, 10.10 | `@fastify/swagger` and `@fastify/swagger-ui` serve generated docs at `/docs`, `/docs/json`, and `/docs/yaml` |
 | 14.6 | Add architecture notes | DEFERRED | P2 | 1.5, 1.6, 1.7, 1.11 | Deferred until after local CRUD/manual testing |
 
 ## Phase 15: Security And Operational Hardening

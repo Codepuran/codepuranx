@@ -25,6 +25,8 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         body: createTodoBodySchema,
         params: userTodosParamsSchema,
         response: { 201: todoResponseSchema, ...commonErrors },
+        summary: 'Create todo',
+        tags: ['todos'],
       },
     },
     async (request, reply) => {
@@ -46,6 +48,8 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         params: userTodosParamsSchema,
         querystring: paginationQuerySchema,
         response: { 200: todoListResponseSchema, ...commonErrors },
+        summary: 'List user todos',
+        tags: ['todos'],
       },
     },
     async (request) => {
@@ -55,7 +59,14 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
 
   app.get<{ Params: UserTodoParams }>(
     '/users/:userId/todos/:todoId',
-    { schema: { params: userTodoParamsSchema, response: { 200: todoResponseSchema, ...commonErrors } } },
+    {
+      schema: {
+        params: userTodoParamsSchema,
+        response: { 200: todoResponseSchema, ...commonErrors },
+        summary: 'Get todo',
+        tags: ['todos'],
+      },
+    },
     async (request) => {
       return app.services.todo.getById(request.params.userId, request.params.todoId);
     }
@@ -68,6 +79,8 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         body: updateTodoBodySchema,
         params: userTodoParamsSchema,
         response: { 200: todoResponseSchema, ...commonErrors },
+        summary: 'Update todo',
+        tags: ['todos'],
       },
     },
     async (request) => {
@@ -77,7 +90,14 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
 
   app.delete<{ Params: UserTodoParams }>(
     '/users/:userId/todos/:todoId',
-    { schema: { params: userTodoParamsSchema, response: { 204: { type: 'null' }, ...commonErrors } } },
+    {
+      schema: {
+        params: userTodoParamsSchema,
+        response: { 204: { type: 'null' }, ...commonErrors },
+        summary: 'Delete todo',
+        tags: ['todos'],
+      },
+    },
     async (request, reply) => {
       await app.services.todo.delete(request.params.userId, request.params.todoId);
       return reply.code(204).send();

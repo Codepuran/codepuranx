@@ -16,7 +16,14 @@ const commonErrors = { 400: errorResponseSchema, 404: errorResponseSchema, 409: 
 export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
   app.post<{ Body: CreateRoleBody }>(
     '/roles',
-    { schema: { body: createRoleBodySchema, response: { 201: roleResponseSchema, ...commonErrors } } },
+    {
+      schema: {
+        body: createRoleBodySchema,
+        response: { 201: roleResponseSchema, ...commonErrors },
+        summary: 'Create role',
+        tags: ['roles'],
+      },
+    },
     async (request, reply) => {
       const role = await app.services.role.create({
         id: randomUUID(),
@@ -30,7 +37,14 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
 
   app.get<{ Params: RoleParams }>(
     '/roles/:roleId',
-    { schema: { params: roleParamsSchema, response: { 200: roleResponseSchema, ...commonErrors } } },
+    {
+      schema: {
+        params: roleParamsSchema,
+        response: { 200: roleResponseSchema, ...commonErrors },
+        summary: 'Get role',
+        tags: ['roles'],
+      },
+    },
     async (request) => {
       return app.services.role.getById(request.params.roleId);
     }
@@ -43,6 +57,8 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
         body: updateRoleBodySchema,
         params: roleParamsSchema,
         response: { 200: roleResponseSchema, ...commonErrors },
+        summary: 'Update role',
+        tags: ['roles'],
       },
     },
     async (request) => {
@@ -52,7 +68,14 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
 
   app.delete<{ Params: RoleParams }>(
     '/roles/:roleId',
-    { schema: { params: roleParamsSchema, response: { 204: { type: 'null' }, ...commonErrors } } },
+    {
+      schema: {
+        params: roleParamsSchema,
+        response: { 204: { type: 'null' }, ...commonErrors },
+        summary: 'Delete role',
+        tags: ['roles'],
+      },
+    },
     async (request, reply) => {
       await app.services.role.delete(request.params.roleId);
       return reply.code(204).send();

@@ -16,7 +16,14 @@ const commonErrors = { 400: errorResponseSchema, 404: errorResponseSchema, 409: 
 export const registerUserRoutes: FastifyPluginAsync = async (app) => {
   app.post<{ Body: CreateUserBody }>(
     '/users',
-    { schema: { body: createUserBodySchema, response: { 201: userResponseSchema, ...commonErrors } } },
+    {
+      schema: {
+        body: createUserBodySchema,
+        response: { 201: userResponseSchema, ...commonErrors },
+        summary: 'Create user',
+        tags: ['users'],
+      },
+    },
     async (request, reply) => {
       const user = await app.services.user.create({
         id: randomUUID(),
@@ -31,7 +38,14 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
 
   app.get<{ Params: UserParams }>(
     '/users/:userId',
-    { schema: { params: userParamsSchema, response: { 200: userResponseSchema, ...commonErrors } } },
+    {
+      schema: {
+        params: userParamsSchema,
+        response: { 200: userResponseSchema, ...commonErrors },
+        summary: 'Get user',
+        tags: ['users'],
+      },
+    },
     async (request) => {
       return app.services.user.getById(request.params.userId);
     }
@@ -44,6 +58,8 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
         body: updateUserBodySchema,
         params: userParamsSchema,
         response: { 200: userResponseSchema, ...commonErrors },
+        summary: 'Update user',
+        tags: ['users'],
       },
     },
     async (request) => {
@@ -53,7 +69,14 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
 
   app.delete<{ Params: UserParams }>(
     '/users/:userId',
-    { schema: { params: userParamsSchema, response: { 204: { type: 'null' }, ...commonErrors } } },
+    {
+      schema: {
+        params: userParamsSchema,
+        response: { 204: { type: 'null' }, ...commonErrors },
+        summary: 'Delete user',
+        tags: ['users'],
+      },
+    },
     async (request, reply) => {
       await app.services.user.delete(request.params.userId);
       return reply.code(204).send();

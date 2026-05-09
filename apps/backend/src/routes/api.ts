@@ -6,9 +6,13 @@ import { registerTodoRoutes } from './todos.js';
 import { registerUserRoutes } from './users.js';
 
 export const registerApiRoutes: FastifyPluginAsync = async (app) => {
-  app.get('/', { schema: { response: { 200: apiInfoResponseSchema } } }, async (): Promise<ApiInfoResponse> => {
-    return { name: 'codepuranx-api', version: 'v1' };
-  });
+  app.get(
+    '/',
+    { schema: { response: { 200: apiInfoResponseSchema }, summary: 'API info', tags: ['api'] } },
+    async (): Promise<ApiInfoResponse> => {
+      return { name: 'codepuranx-api', version: 'v1' };
+    }
+  );
 
   app.get<{ Params: IdParams }>(
     '/validation-check/:id',
@@ -23,6 +27,8 @@ export const registerApiRoutes: FastifyPluginAsync = async (app) => {
             properties: { id: { type: 'string' } },
           },
         },
+        summary: 'Validate route params',
+        tags: ['api'],
       },
     },
     async (request) => {

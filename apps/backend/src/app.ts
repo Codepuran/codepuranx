@@ -4,6 +4,7 @@ import type { AppConfig } from './config/index.js';
 import { type AppDependencies, registerDependencies } from './plugins/dependencies.js';
 import { registerErrorHandlers } from './plugins/error-handlers.js';
 import { registerHealthRoutes } from './plugins/health.js';
+import { registerOpenApi } from './plugins/openapi.js';
 import { registerRequestContext } from './plugins/request-context.js';
 import { registerSecurityHeaders } from './plugins/security.js';
 import { registerApiRoutes } from './routes/api.js';
@@ -29,6 +30,8 @@ export const buildApp = async (options: BuildAppOptions = {}): Promise<FastifyIn
   registerRequestContext(app);
 
   if (options.config) {
+    await registerOpenApi(app, options.config);
+
     await registerDependencies(app, {
       config: options.config,
       ...(options.dependencies ? { dependencies: options.dependencies } : {}),

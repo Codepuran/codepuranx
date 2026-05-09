@@ -65,3 +65,17 @@ Sensitive values are redacted from logs:
 - `jwt.secret`
 
 Lambda-specific log shaping is intentionally deferred.
+
+## OpenAPI
+
+OpenAPI documentation is served when the backend is built with runtime config.
+
+- Swagger UI: `OPENAPI_ROUTE_PREFIX`, default `/docs`.
+- JSON spec: `${OPENAPI_ROUTE_PREFIX}/json`, default `/docs/json`.
+- YAML spec: `${OPENAPI_ROUTE_PREFIX}/yaml`, default `/docs/yaml`.
+
+The spec is generated from Fastify route schemas, so routes must be registered after the OpenAPI plugin.
+
+The OpenAPI server URL is same-origin (`/`) so Swagger UI executes requests against the host that served `/docs`. This avoids browser CSP and origin mismatches between `localhost` and `127.0.0.1`.
+
+Swagger UI has a route-specific CSP that permits its required inline styles and same-origin API execution. The global Helmet CSP is disabled because this service is API-first and Swagger UI owns the only HTML page CSP for now.
