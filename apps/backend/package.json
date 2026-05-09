@@ -11,7 +11,7 @@
     "dynamo:setup": "tsx scripts/dynamo-setup.ts",
     "dev": "tsx watch src/server.ts",
     "lint": "biome check .",
-    "start": "node dist/server.js",
+    "start": "node --enable-source-maps dist/server.js",
     "test": "jest --config jest.config.cjs --runInBand",
     "test:coverage": "jest --config jest.config.cjs --runInBand --coverage",
     "typecheck": "tsc --project tsconfig.json --noEmit"
