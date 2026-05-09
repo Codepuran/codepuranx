@@ -15,17 +15,7 @@ module.exports = {
   transform: {
     "^.+\\.ts$": [
       "@swc/jest",
-      {
-        jsc: {
-          parser: {
-            syntax: "typescript",
-          },
-          target: "es2024",
-        },
-        module: {
-          type: "es6",
-        },
-      },
+      { jsc: { parser: { syntax: "typescript" }, target: "es2024" }, module: { type: "es6" } },
     ],
   },
 };

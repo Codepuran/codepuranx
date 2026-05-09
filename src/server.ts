@@ -1,18 +1,9 @@
 import { buildApp } from "./app.js";
+import { createLoggerOptions, loadConfig } from "./config/index.js";
 
-const host = process.env.HOST ?? "127.0.0.1";
-const port = Number.parseInt(process.env.PORT ?? "3000", 10);
+const config = loadConfig();
 
-if (Number.isNaN(port)) {
-  throw new Error("PORT must be a valid number");
-}
-
-const app = await buildApp({
-  logger: {
-    level: process.env.LOG_LEVEL ?? "info",
-    redact: ["req.headers.authorization", "req.headers.cookie"],
-  },
-});
+const app = await buildApp({ logger: createLoggerOptions(config) });
 
 const close = async (signal: NodeJS.Signals): Promise<void> => {
   app.log.info({ signal }, "closing server");
@@ -44,7 +35,7 @@ process.once("SIGTERM", (signal) => {
 });
 
 try {
-  await app.listen({ host, port });
+  await app.listen({ host: config.server.host, port: config.server.port });
 } catch (error) {
   app.log.error({ error }, "failed to start server");
   process.exit(1);

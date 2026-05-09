@@ -4,9 +4,7 @@
   "description": "This repository will contain a Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.",
   "type": "module",
   "main": "dist/server.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "directories": { "doc": "docs" },
   "scripts": {
     "build": "swc src -d dist --copy-files",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
@@ -17,10 +15,7 @@
     "test": "jest --runInBand",
     "typecheck": "tsc --noEmit"
   },
-  "engines": {
-    "node": ">=24 <25",
-    "npm": ">=11"
-  },
+  "engines": { "node": ">=24 <25", "npm": ">=11" },
   "keywords": [],
   "author": "",
   "license": "ISC",

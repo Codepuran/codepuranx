@@ -6,16 +6,12 @@ export const registerHealthRoutes: FastifyPluginAsync = async (app) => {
     {
       schema: {
         response: {
-          200: {
-            type: "object",
-            required: ["status"],
-            properties: { status: { type: "string", enum: ["ok"] } },
-          },
+          200: { type: "object", required: ["status"], properties: { status: { type: "string", enum: ["ok"] } } },
         },
       },
     },
     async () => {
       return { status: "ok" };
-    },
+    }
   );
 };

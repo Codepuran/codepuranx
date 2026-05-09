@@ -1,13 +1,6 @@
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-type ErrorResponse = {
-  error: {
-    code: string;
-    message: string;
-    requestId: string;
-    statusCode: number;
-  };
-};
+type ErrorResponse = { error: { code: string; message: string; requestId: string; statusCode: number } };
 
 const statusCodeFromError = (error: FastifyError): number => {
   if (typeof error.statusCode === "number" && error.statusCode >= 400) {
@@ -48,14 +41,7 @@ const sendError = (
   code: string,
   message: string
 ): void => {
-  const payload: ErrorResponse = {
-    error: {
-      code,
-      message,
-      requestId: request.id,
-      statusCode,
-    },
-  };
+  const payload: ErrorResponse = { error: { code, message, requestId: request.id, statusCode } };
 
   reply.code(statusCode).send(payload);
 };

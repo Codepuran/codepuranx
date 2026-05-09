@@ -11,10 +11,7 @@ describe("Fastify app foundation", () => {
   it("returns health status", async () => {
     const app = await buildApp();
 
-    const response = await app.inject({
-      method: "GET",
-      url: "/health",
-    });
+    const response = await app.inject({ method: "GET", url: "/health" });
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual({ status: "ok" });
@@ -27,16 +24,10 @@ describe("Fastify app foundation", () => {
   it("registers the v1 API prefix", async () => {
     const app = await buildApp();
 
-    const response = await app.inject({
-      method: "GET",
-      url: "/api/v1",
-    });
+    const response = await app.inject({ method: "GET", url: "/api/v1" });
 
     expect(response.statusCode).toBe(200);
-    expect(response.json()).toEqual({
-      name: "codepuranx-api",
-      version: "v1",
-    });
+    expect(response.json()).toEqual({ name: "codepuranx-api", version: "v1" });
 
     await app.close();
   });
@@ -44,21 +35,12 @@ describe("Fastify app foundation", () => {
   it("returns a consistent not found response", async () => {
     const app = await buildApp();
 
-    const response = await app.inject({
-      method: "GET",
-      url: "/missing",
-    });
+    const response = await app.inject({ method: "GET", url: "/missing" });
 
     const body = response.json();
 
     expect(response.statusCode).toBe(404);
-    expect(body).toMatchObject({
-      error: {
-        code: "ROUTE_NOT_FOUND",
-        message: "Route not found",
-        statusCode: 404,
-      },
-    });
+    expect(body).toMatchObject({ error: { code: "ROUTE_NOT_FOUND", message: "Route not found", statusCode: 404 } });
     expect(body.error.requestId).toBeDefined();
 
     await app.close();

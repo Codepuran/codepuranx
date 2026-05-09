@@ -94,11 +94,11 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 4.1 | Define environment variable list | TODO | P0 | 1.11, 1.12 | Required variables documented |
-| 4.2 | Add config module | TODO | P0 | 4.1 | App reads config from one place |
-| 4.3 | Add environment validation | TODO | P0 | 1.7, 4.2 | Invalid config fails fast |
-| 4.4 | Separate local/test/Lambda config expectations | TODO | P1 | 4.2 | Environment behavior is documented |
-| 4.5 | Ensure sensitive config is not logged | TODO | P1 | 3.3, 4.2 | Logger redaction covers secrets |
+| 4.1 | Define environment variable list | DONE | P0 | 1.11, 1.12 | Required and optional variables documented in `.env.example` and `docs/configuration.md` |
+| 4.2 | Add config module | DONE | P0 | 4.1 | `src/config` centralizes config loading and logger options |
+| 4.3 | Add environment validation | DONE | P0 | 1.7, 4.2 | Invalid required values, enum values, and port values fail fast |
+| 4.4 | Separate local/test/Lambda config expectations | DONE | P1 | 4.2 | `docs/configuration.md` documents local, test, and Lambda expectations |
+| 4.5 | Ensure sensitive config is not logged | DONE | P1 | 3.3, 4.2 | Logger options redact auth headers, cookies, and JWT secret paths |
 
 ## Phase 5: Validation Foundation
 

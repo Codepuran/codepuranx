@@ -6,4 +6,4 @@ Current planning documents:
 
 - [Wishlist](docs/wishlist.md)
 - [Execution Plan](docs/plan.md)
-
+- [Configuration](docs/configuration.md)

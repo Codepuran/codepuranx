@@ -1,21 +1,13 @@
 import { randomUUID } from "node:crypto";
-import fastify, {
-  type FastifyBaseLogger,
-  type FastifyInstance,
-  type FastifyServerOptions,
-} from "fastify";
+import fastify, { type FastifyBaseLogger, type FastifyInstance, type FastifyServerOptions } from "fastify";
 import { registerErrorHandlers } from "./plugins/error-handlers.js";
 import { registerHealthRoutes } from "./plugins/health.js";
 import { registerRequestContext } from "./plugins/request-context.js";
 import { registerApiRoutes } from "./routes/api.js";
 
-export type BuildAppOptions = {
-  logger?: FastifyServerOptions["logger"];
-};
+export type BuildAppOptions = { logger?: FastifyServerOptions["logger"] };
 
-export const buildApp = async (
-  options: BuildAppOptions = {},
-): Promise<FastifyInstance> => {
+export const buildApp = async (options: BuildAppOptions = {}): Promise<FastifyInstance> => {
   const app = fastify({
     disableRequestLogging: false,
     genReqId: () => randomUUID(),

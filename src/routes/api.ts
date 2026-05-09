@@ -9,19 +9,13 @@ export const registerApiRoutes: FastifyPluginAsync = async (app) => {
           200: {
             type: "object",
             required: ["name", "version"],
-            properties: {
-              name: { type: "string" },
-              version: { type: "string" },
-            },
+            properties: { name: { type: "string" }, version: { type: "string" } },
           },
         },
       },
     },
     async () => {
-      return {
-        name: "codepuranx-api",
-        version: "v1",
-      };
-    },
+      return { name: "codepuranx-api", version: "v1" };
+    }
   );
 };
