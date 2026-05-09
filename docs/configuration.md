@@ -1,6 +1,6 @@
 # Configuration
 
-Configuration is loaded once from environment variables through `src/config`.
+Configuration is loaded once from environment variables through `apps/backend/src/config`.
 
 ## Required Variables
 
@@ -22,7 +22,8 @@ Configuration is loaded once from environment variables through `src/config`.
 
 Local development:
 
-- Use `.env` or shell exports for local values.
+- Use a root `.env` file or shell exports for local values.
+- Use `apps/backend/.env.example` as the backend variable reference.
 - Set `DYNAMODB_ENDPOINT` when using a local DynamoDB instance.
 - Use a non-production `JWT_SECRET`.
 

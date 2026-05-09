@@ -89,3 +89,8 @@ The local table setup creates:
 - Billing mode: `PAY_PER_REQUEST`
 - Attribute definitions: `pk` as string, `sk` as string
 - Key schema: `pk` hash key, `sk` range key
+
+Local helper commands:
+
+- `npm run dynamo:setup`: create the configured local table through the backend Nx target.
+- `npm run dynamo:check`: describe the configured table through the backend Nx target.

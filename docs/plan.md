@@ -2,6 +2,8 @@
 
 This plan turns the wishlist into a logical implementation sequence. It is designed to be updated as work progresses.
 
+Monorepo note: after the Nx migration, backend-owned implementation paths live under `apps/backend`. Historical entries that mention `src`, `tests`, `scripts`, `tsconfig.json`, `jest.config.cjs`, or `.env.example` refer to their backend equivalents under `apps/backend`.
+
 ## Tracking Method
 
 Status values:

@@ -143,12 +143,12 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 5.1 | Update relative paths in Jest config | TODO | P0 | 3.6 | Jest finds backend tests and source files after relocation |
-| 5.2 | Update TypeScript include/exclude paths | TODO | P0 | 3.7 | TypeScript includes backend source and tests as intended |
-| 5.3 | Update SWC input/output paths | TODO | P0 | 4.2 | Build output preserves expected runtime structure |
-| 5.4 | Update scripts that assume repo-root execution | TODO | P1 | 3.4, 4.7 | DynamoDB scripts work through Nx from the repo root |
-| 5.5 | Update documentation links and command references | TODO | P2 | 4.8 | Docs mention Nx commands and backend app path |
-| 5.6 | Confirm runtime environment loading behavior | TODO | P1 | 3.5, 4.1 | Local dev can still load backend environment variables intentionally |
+| 5.1 | Update relative paths in Jest config | DONE | P0 | 3.6 | Jest finds backend tests and source files after relocation; `npm test` passes |
+| 5.2 | Update TypeScript include/exclude paths | DONE | P0 | 3.7 | TypeScript includes backend source and tests as intended; `npm run typecheck` passes |
+| 5.3 | Update SWC input/output paths | DONE | P0 | 4.2 | Build output preserves expected runtime structure at `dist/apps/backend` |
+| 5.4 | Update scripts that assume repo-root execution | DONE | P1 | 3.4, 4.7 | DynamoDB script Nx targets point at `apps/backend/scripts` and scripts still import backend source through relative paths |
+| 5.5 | Update documentation links and command references | DONE | P2 | 4.8 | README, configuration docs, DynamoDB docs, and the original execution plan mention Nx commands and backend app paths |
+| 5.6 | Confirm runtime environment loading behavior | DONE | P1 | 3.5, 4.1 | Local dev works with shell-provided env vars; docs explain using a root `.env` or shell exports with `apps/backend/.env.example` as reference |
 
 ## Phase 6: Verification
 
