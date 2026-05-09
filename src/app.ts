@@ -5,6 +5,7 @@ import { type AppDependencies, registerDependencies } from './plugins/dependenci
 import { registerErrorHandlers } from './plugins/error-handlers.js';
 import { registerHealthRoutes } from './plugins/health.js';
 import { registerRequestContext } from './plugins/request-context.js';
+import { registerSecurityHeaders } from './plugins/security.js';
 import { registerApiRoutes } from './routes/api.js';
 
 export type BuildAppOptions = {
@@ -22,6 +23,8 @@ export const buildApp = async (options: BuildAppOptions = {}): Promise<FastifyIn
   });
 
   registerErrorHandlers(app);
+
+  await registerSecurityHeaders(app);
 
   registerRequestContext(app);
 

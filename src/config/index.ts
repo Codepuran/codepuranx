@@ -105,7 +105,14 @@ export const loadConfig = (env: EnvInput = process.env): AppConfig => {
     server: { env: nodeEnv, host: requireValue(env, 'HOST'), port: parsePort(requireValue(env, 'PORT')) },
     logger: {
       level: logLevel,
-      redact: ['req.headers.authorization', 'req.headers.cookie', 'config.jwt.secret', 'jwt.secret'],
+      redact: [
+        'req.headers.authorization',
+        'req.headers.cookie',
+        'req.headers["x-api-key"]',
+        'req.headers["x-amz-security-token"]',
+        'config.jwt.secret',
+        'jwt.secret',
+      ],
     },
     dynamodb: {
       region: requireValue(env, 'DYNAMODB_REGION'),

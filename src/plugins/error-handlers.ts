@@ -40,11 +40,15 @@ const codeFromError = (error: FastifyError, statusCode: number): string => {
     return 'VALIDATION_ERROR';
   }
 
+  if (statusCode >= 500) {
+    return 'INTERNAL_SERVER_ERROR';
+  }
+
   if (error.code) {
     return error.code;
   }
 
-  return statusCode >= 500 ? 'INTERNAL_SERVER_ERROR' : 'HTTP_ERROR';
+  return 'HTTP_ERROR';
 };
 
 const messageFromError = (error: FastifyError, statusCode: number): string => {
@@ -86,6 +90,7 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
   app.setErrorHandler((error, request, reply) => {
     if (isDomainError(error)) {
       const statusCode = statusCodeFromDomainCode(error.code);
+      const code = statusCode >= 500 ? 'INTERNAL_SERVER_ERROR' : error.code;
       const message = statusCode >= 500 ? 'Internal server error' : error.message;
 
       if (statusCode >= 500) {
@@ -94,7 +99,7 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
         request.log.info({ error }, 'request rejected');
       }
 
-      sendError(request, reply, statusCode, error.code, message);
+      sendError(request, reply, statusCode, code, message);
       return;
     }
 

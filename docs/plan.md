@@ -232,13 +232,13 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 15.1 | Add CORS policy if needed | TODO | P2 | 3.8 | CORS behavior is explicit |
-| 15.2 | Add security headers if applicable | TODO | P2 | 3.8 | Basic HTTP hardening exists |
-| 15.3 | Add rate limiting decision | DISCUSS | P2 | 9.2 | Include or defer decision recorded |
-| 15.4 | Ensure logs redact secrets and auth tokens | TODO | P1 | 3.3, 4.5, 9.2 | Sensitive fields are not logged |
-| 15.5 | Ensure all protected routes have auth/RBAC | TODO | P1 | 9.7, 10.8 | Route audit passes |
-| 15.6 | Ensure errors do not leak internals | TODO | P1 | 3.5, 6.7 | Error responses are safe |
-| 15.7 | Decide password handling scope | DISCUSS | P2 | 1.12 | Password auth included or deferred |
+| 15.1 | Add CORS policy if needed | DONE | P2 | 3.8 | CORS is explicitly disabled for the current API-only seed |
+| 15.2 | Add security headers if applicable | DONE | P2 | 3.8 | `@fastify/helmet` applies baseline security headers |
+| 15.3 | Add rate limiting decision | DEFERRED | P2 | 9.2 | Deferred until auth/RBAC or public exposure is enabled |
+| 15.4 | Ensure logs redact secrets and auth tokens | DONE | P1 | 3.3, 4.5, 9.2 | Logger redacts authorization, cookies, API keys, AWS security token, and JWT secrets |
+| 15.5 | Ensure all protected routes have auth/RBAC | DEFERRED | P1 | 9.7, 10.8 | Deferred because Phase 9 auth/RBAC is deferred and routes are intentionally open |
+| 15.6 | Ensure errors do not leak internals | DONE | P1 | 3.5, 6.7 | 500 responses return a generic code/message; validation/domain 4xx errors remain structured |
+| 15.7 | Decide password handling scope | DEFERRED | P2 | 1.12 | Deferred because local JWT auth is deferred |
 
 ## Phase 16: CI Readiness
 

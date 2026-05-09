@@ -64,6 +64,8 @@ describe('config', () => {
       redact: expect.arrayContaining([
         'req.headers.authorization',
         'req.headers.cookie',
+        'req.headers["x-api-key"]',
+        'req.headers["x-amz-security-token"]',
         'config.jwt.secret',
         'jwt.secret',
       ]),

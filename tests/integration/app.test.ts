@@ -21,6 +21,19 @@ describe('Fastify app foundation', () => {
     await app.close();
   });
 
+  it('applies security headers without enabling CORS', async () => {
+    const app = await buildApp();
+
+    const response = await app.inject({ headers: { origin: 'https://example.com' }, method: 'GET', url: '/health' });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.headers['x-content-type-options']).toBe('nosniff');
+    expect(response.headers['x-frame-options']).toBe('SAMEORIGIN');
+    expect(response.headers['access-control-allow-origin']).toBeUndefined();
+
+    await app.close();
+  });
+
   it('registers the v1 API prefix', async () => {
     const app = await buildApp();
 
@@ -57,6 +70,25 @@ describe('Fastify app foundation', () => {
     expect(invalidBody.error.details).toEqual(
       expect.arrayContaining([expect.objectContaining({ keyword: 'pattern', message: expect.any(String) })])
     );
+
+    await app.close();
+  });
+
+  it('masks unexpected server errors', async () => {
+    const app = await buildApp();
+
+    app.get('/boom', async () => {
+      const error = new Error('database password leaked');
+      Object.assign(error, { code: 'DATABASE_SECRET_ERROR', statusCode: 500 });
+      throw error;
+    });
+
+    const response = await app.inject({ method: 'GET', url: '/boom' });
+
+    expect(response.statusCode).toBe(500);
+    expect(response.json()).toMatchObject({
+      error: { code: 'INTERNAL_SERVER_ERROR', message: 'Internal server error', statusCode: 500 },
+    });
 
     await app.close();
   });
