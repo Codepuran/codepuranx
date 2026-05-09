@@ -45,21 +45,21 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 1.1 | Confirm current Fastify latest/LTS version and compatibility policy | TODO | P0 | None | Version decision recorded |
-| 1.2 | Confirm Node.js LTS target | TODO | P0 | None | Exact Node version recorded in `.nvmrc` or equivalent |
-| 1.3 | Decide package manager: npm, pnpm, or yarn | DISCUSS | P0 | None | Lockfile strategy selected |
-| 1.4 | Decide module format: ESM or CommonJS | DISCUSS | P0 | 1.2 | Decision recorded with Lambda/tooling rationale |
-| 1.5 | Decide project structure: Fastify plugins plus routes/services/repositories vs strict MVC | DISCUSS | P0 | None | Folder structure documented |
-| 1.6 | Decide dependency injection approach | DISCUSS | P0 | 1.5 | Chosen approach documented |
-| 1.7 | Decide validation approach: Fastify JSON Schema, Zod, Joi, or hybrid | DISCUSS | P0 | 1.1 | Chosen validation strategy documented |
-| 1.8 | Decide testing framework: Jest, Vitest, or Node test runner | DISCUSS | P0 | 1.3 | Test tool selected |
-| 1.9 | Decide linting and formatting stack: ESLint/Prettier or Biome | DISCUSS | P0 | 1.3 | Tooling selected |
-| 1.10 | Decide build tool: `tsc`, `tsup`, `esbuild`, or SWC | DISCUSS | P0 | 1.4 | Build path selected |
-| 1.11 | Decide DynamoDB table model: single-table or multi-table for v1 | DISCUSS | P0 | None | Table design direction recorded |
-| 1.12 | Decide auth strategy for v1: local JWT, API key, Cognito-compatible stub, or deferred | DISCUSS | P1 | None | Auth boundary selected |
-| 1.13 | Decide RBAC scope for v1 | DISCUSS | P1 | 1.12 | Initial roles and permissions listed |
-| 1.14 | Decide API versioning strategy | DISCUSS | P1 | 1.5 | Route prefix/versioning documented |
-| 1.15 | Decide OpenAPI documentation timing | DISCUSS | P2 | 1.7 | Include now or defer |
+| 1.1 | Confirm current Fastify latest/LTS version and compatibility policy | DONE | P0 | None | Use Fastify `5.8.x`; verified latest docs list v5.8.x |
+| 1.2 | Confirm Node.js LTS target | DONE | P0 | None | Use Node.js `24.x`; manage local version with nvm |
+| 1.3 | Decide package manager: npm, pnpm, or yarn | DONE | P0 | None | Use npm and commit `package-lock.json` |
+| 1.4 | Decide module format: ESM or CommonJS | DONE | P0 | 1.2 | Use ESM |
+| 1.5 | Decide project structure: Fastify plugins plus routes/services/repositories vs strict MVC | DONE | P0 | None | Use Fastify plugin architecture with routes, services, and repositories |
+| 1.6 | Decide dependency injection approach | DONE | P0 | 1.5 | Use Fastify-native plugins, decorators, and encapsulation first; avoid external DI container for v1 |
+| 1.7 | Decide validation approach: Fastify JSON Schema, Zod, Joi, or hybrid | DONE | P0 | 1.1 | Use Fastify-native JSON Schema validation with Ajv and response serialization |
+| 1.8 | Decide testing framework: Jest, Vitest, or Node test runner | DONE | P0 | 1.3 | Use Jest |
+| 1.9 | Decide linting and formatting stack: ESLint/Prettier or Biome | DONE | P0 | 1.3 | Use Biome |
+| 1.10 | Decide build tool: `tsc`, `tsup`, `esbuild`, or SWC | DONE | P0 | 1.4 | Use SWC for fast transpilation and `tsc --noEmit` for type checking |
+| 1.11 | Decide DynamoDB table model: single-table or multi-table for v1 | DONE | P0 | None | Use single-table design with primary key attributes `pk` and `sk` |
+| 1.12 | Decide auth strategy for v1: local JWT, API key, Cognito-compatible stub, or deferred | DONE | P1 | None | Use local JWT for v1 |
+| 1.13 | Decide RBAC scope for v1 | DONE | P1 | 1.12 | Implement role checks now |
+| 1.14 | Decide API versioning strategy | DONE | P1 | 1.5 | Use `/api/v1` prefix |
+| 1.15 | Decide OpenAPI documentation timing | DONE | P2 | 1.7 | Include OpenAPI from day one |
 
 ## Phase 2: Project Scaffold
 
@@ -353,6 +353,21 @@ Use this section to record decisions as we make them.
 | Date | Decision | Rationale | Impact |
 | --- | --- | --- | --- |
 | 2026-05-09 | Initialize Git immediately using `main` as the initial branch and `dev` for regular coding | Keep the planning baseline stable on `main` before implementation begins | Future implementation work happens on `dev` |
+| 2026-05-09 | Use Fastify `5.8.x` | Latest Fastify docs list v5.8.x, and the project requirement is latest Fastify | Runtime dependencies should target Fastify v5 |
+| 2026-05-09 | Use Node.js `24.x` managed by nvm | Node 24 is current LTS and available locally; AWS Lambda supports `nodejs24.x` | Add `.nvmrc` with Node 24 during scaffold |
+| 2026-05-09 | Use npm | Team decision | Commit `package-lock.json` |
+| 2026-05-09 | Use ESM | Team decision and modern Node/Lambda compatibility | Configure `type: module` and ESM TypeScript output |
+| 2026-05-09 | Use Fastify plugin architecture with routes, services, and repositories | Better fit for Fastify than strict MVC | Source tree should be plugin-first, not controller-heavy |
+| 2026-05-09 | Use Fastify-native DI through plugins, decorators, and encapsulation | This is the common Fastify approach and avoids extra runtime machinery | Add typed decorators/module augmentation where needed |
+| 2026-05-09 | Use Fastify-native JSON Schema validation | Fastify is built around JSON Schema validation and response serialization | Prefer schema-first route definitions; avoid Joi/Zod for v1 |
+| 2026-05-09 | Use Jest | Team decision | Configure Jest for TypeScript/ESM project |
+| 2026-05-09 | Use Biome for linting and formatting | Team decision favoring fast tooling | Add Biome config and scripts |
+| 2026-05-09 | Use SWC for build and `tsc --noEmit` for type checking | Fastify does not prescribe a build tool; SWC gives fast transpilation while TypeScript handles type safety | Configure both build and typecheck scripts |
+| 2026-05-09 | Use DynamoDB single-table design with `pk` and `sk` | Team decision and good fit for planned access-pattern-first DynamoDB design | Design all v1 entities around `pk` and `sk` |
+| 2026-05-09 | Use local JWT auth for v1 | Team decision | Add JWT plugin and local auth flow |
+| 2026-05-09 | Implement role checks in v1 | Team decision | RBAC must be part of first CRUD implementation |
+| 2026-05-09 | Use `/api/v1` route prefix | Team decision | Register v1 routes under `/api/v1` |
+| 2026-05-09 | Include OpenAPI from day one | Team decision | Add OpenAPI tooling during scaffold |
 
 ## Deferred Ideas
 
