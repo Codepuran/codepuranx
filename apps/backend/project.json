@@ -4,23 +4,20 @@
   "root": "apps/backend",
   "sourceRoot": "apps/backend/src",
   "targets": {
-    "build": {
-      "command": "cd apps/backend && swc src -d ../../dist/apps/backend --copy-files --strip-leading-paths --delete-dir-on-start --config-file .swcrc",
-      "outputs": ["{workspaceRoot}/dist/apps/backend"]
-    },
-    "dynamo-check": { "command": "tsx apps/backend/scripts/dynamo-check.ts" },
-    "dynamo-setup": { "command": "tsx apps/backend/scripts/dynamo-setup.ts" },
-    "lint": { "command": "biome check apps/backend" },
-    "serve": { "command": "tsx watch apps/backend/src/server.ts" },
-    "start": { "command": "node dist/apps/backend/server.js", "dependsOn": ["build"] },
+    "build": { "command": "npm --workspace @codepuranx/backend run build", "outputs": ["{projectRoot}/dist"] },
+    "dynamo-check": { "command": "npm --workspace @codepuranx/backend run dynamo:check" },
+    "dynamo-setup": { "command": "npm --workspace @codepuranx/backend run dynamo:setup" },
+    "lint": { "command": "npm --workspace @codepuranx/backend run lint" },
+    "serve": { "command": "npm --workspace @codepuranx/backend run dev" },
+    "start": { "command": "npm --workspace @codepuranx/backend run start", "dependsOn": ["build"] },
     "test": {
-      "command": "jest --config apps/backend/jest.config.cjs --runInBand",
+      "command": "npm --workspace @codepuranx/backend run test",
       "outputs": ["{workspaceRoot}/coverage/apps/backend"]
     },
     "test-coverage": {
-      "command": "jest --config apps/backend/jest.config.cjs --runInBand --coverage",
+      "command": "npm --workspace @codepuranx/backend run test:coverage",
       "outputs": ["{workspaceRoot}/coverage/apps/backend"]
     },
-    "typecheck": { "command": "tsc --project apps/backend/tsconfig.json --noEmit" }
+    "typecheck": { "command": "npm --workspace @codepuranx/backend run typecheck" }
   }
 }

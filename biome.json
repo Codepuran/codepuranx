@@ -4,6 +4,7 @@
     "includes": [
       "**",
       "!dist/**",
+      "!**/dist/**",
       "!coverage/**",
       "!**/coverage/**",
       "!.nx/**",

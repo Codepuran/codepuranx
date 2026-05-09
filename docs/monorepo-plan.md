@@ -131,8 +131,8 @@ Future app locations:
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
 | 4.1 | Port backend dev command to Nx target | DONE | P0 | 3.9 | `npm run dev` starts `apps/backend/src/server.ts`; verified `/health` returns `200` with local env vars |
-| 4.2 | Port backend build command to Nx target | DONE | P0 | 3.7, 3.9 | `npm run build` emits backend output under `dist/apps/backend` |
-| 4.3 | Port backend start command | DONE | P1 | 4.2 | `npm run start` runs `dist/apps/backend/server.js`; verified `/health` returns `200` with local env vars |
+| 4.2 | Port backend build command to Nx target | DONE | P0 | 3.7, 3.9 | `npm run build` emits backend output under `apps/backend/dist` |
+| 4.3 | Port backend start command | DONE | P1 | 4.2 | `npm run start` runs `apps/backend/dist/server.js`; verified `/health` returns `200` with local env vars |
 | 4.4 | Port backend typecheck command | DONE | P0 | 3.7, 3.9 | `npm run typecheck` runs `tsc --project apps/backend/tsconfig.json --noEmit` |
 | 4.5 | Port backend test command | DONE | P0 | 3.6, 3.9 | `npm test` runs the existing Jest suite through Nx |
 | 4.6 | Port backend coverage command | DONE | P2 | 4.5 | `npm run test:coverage` writes coverage to ignored root `coverage/apps/backend` |
@@ -145,7 +145,7 @@ Future app locations:
 | --- | --- | --- | --- | --- | --- |
 | 5.1 | Update relative paths in Jest config | DONE | P0 | 3.6 | Jest finds backend tests and source files after relocation; `npm test` passes |
 | 5.2 | Update TypeScript include/exclude paths | DONE | P0 | 3.7 | TypeScript includes backend source and tests as intended; `npm run typecheck` passes |
-| 5.3 | Update SWC input/output paths | DONE | P0 | 4.2 | Build output preserves expected runtime structure at `dist/apps/backend` |
+| 5.3 | Update SWC input/output paths | DONE | P0 | 4.2 | Build output preserves expected runtime structure at `apps/backend/dist` |
 | 5.4 | Update scripts that assume repo-root execution | DONE | P1 | 3.4, 4.7 | DynamoDB script Nx targets point at `apps/backend/scripts` and scripts still import backend source through relative paths |
 | 5.5 | Update documentation links and command references | DONE | P2 | 4.8 | README, configuration docs, DynamoDB docs, and the original execution plan mention Nx commands and backend app paths |
 | 5.6 | Confirm runtime environment loading behavior | DONE | P1 | 3.5, 4.1 | Local dev works with shell-provided env vars; docs explain using a root `.env` or shell exports with `apps/backend/.env.example` as reference |
@@ -166,11 +166,11 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 7.1 | Reserve `apps/ui` as the frontend location | READY | P3 | None | Plan documents React app location without creating it yet |
-| 7.2 | Define future UI generator/tooling decision | DEFERRED | P3 | 7.1 | Choose Vite, Next.js, or another React setup when UI work starts |
-| 7.3 | Define shared API type strategy | DEFERRED | P2 | 7.2 | Decide whether shared schemas/types belong in `libs/api-contracts` |
-| 7.4 | Define frontend-to-backend local dev workflow | DEFERRED | P2 | 7.2 | Future `nx serve ui` and `nx serve backend` workflow is documented |
-| 7.5 | Add affected-project CI strategy | DEFERRED | P2 | 7.2 | CI can run only affected backend/ui projects once multiple apps exist |
+| 7.1 | Reserve `apps/ui` as the frontend location | DONE | P3 | None | Plan documents React app location without creating it yet |
+| 7.2 | Define future UI generator/tooling decision | DEFERRED | P3 | 7.1 | Deferred until UI work starts; choose Vite, Next.js, or another React setup with current requirements |
+| 7.3 | Define shared API type strategy | DEFERRED | P2 | 7.2 | Deferred until there is a second consumer; decide whether shared schemas/types belong in `libs/api-contracts` |
+| 7.4 | Define frontend-to-backend local dev workflow | DEFERRED | P2 | 7.2 | Deferred until UI exists; document future `nx serve ui` and `nx serve backend` workflow then |
+| 7.5 | Add affected-project CI strategy | DEFERRED | P2 | 7.2 | Deferred until multiple projects exist; CI can later run only affected backend/ui projects |
 
 ## Suggested Implementation Milestones
 
@@ -233,6 +233,7 @@ Use this section to record decisions as we make them.
 | 2026-05-10 | Keep npm as the package manager | The current project already uses npm and commits `package-lock.json` | Migration should update the existing lockfile rather than introduce another package manager |
 | 2026-05-10 | Do not create `apps/ui` during the first migration | The current implementation only has the backend | React app setup is deferred until frontend work starts |
 | 2026-05-10 | Reserve `apps/infra` for future infrastructure code | Keeping infra as an Nx project allows shared workspace commands, dependency graph visibility, and affected-project checks when IaC is added | No infra files are created during the backend-only migration |
+| 2026-05-10 | Reserve `apps/ui` for the future React frontend | Keeping the UI under `apps` matches the backend layout and Nx project model | No UI files are created during the backend-only migration |
 
 ## Deferred Ideas
 
