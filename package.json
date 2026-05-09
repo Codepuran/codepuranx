@@ -1,22 +1,24 @@
 {
   "name": "codepuranx",
   "version": "1.0.0",
+  "private": true,
   "description": "This repository will contain a Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.",
   "type": "module",
   "main": "dist/server.js",
   "directories": { "doc": "docs" },
+  "workspaces": ["apps/*"],
   "scripts": {
-    "build": "swc src -d dist --copy-files",
-    "check": "npm run typecheck && npm run lint && npm test && npm run build",
-    "dynamo:check": "tsx scripts/dynamo-check.ts",
-    "dynamo:setup": "tsx scripts/dynamo-setup.ts",
-    "dev": "tsx watch src/server.ts",
+    "build": "nx build backend",
+    "check": "nx run-many -t typecheck lint test build",
+    "dynamo:check": "nx run backend:dynamo-check",
+    "dynamo:setup": "nx run backend:dynamo-setup",
+    "dev": "nx serve backend",
     "format": "biome format --write .",
-    "lint": "biome check .",
-    "start": "node dist/server.js",
-    "test": "jest --runInBand",
-    "test:coverage": "jest --runInBand --coverage",
-    "typecheck": "tsc --noEmit"
+    "lint": "nx lint backend",
+    "start": "nx run backend:start",
+    "test": "nx test backend",
+    "test:coverage": "nx run backend:test-coverage",
+    "typecheck": "nx typecheck backend"
   },
   "engines": { "node": ">=24 <25", "npm": ">=11" },
   "keywords": [],
@@ -43,7 +45,25 @@
     "@types/node": "^24.12.3",
     "jest": "^29.7.0",
     "json-schema-to-ts": "^3.1.1",
+    "nx": "^22.7.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
+  },
+  "nx": {
+    "name": "backend",
+    "targets": {
+      "build": {
+        "command": "swc src -d dist --copy-files --strip-leading-paths --delete-dir-on-start",
+        "outputs": ["{workspaceRoot}/dist"]
+      },
+      "dynamo-check": { "command": "tsx scripts/dynamo-check.ts" },
+      "dynamo-setup": { "command": "tsx scripts/dynamo-setup.ts" },
+      "lint": { "command": "biome check ." },
+      "serve": { "command": "tsx watch src/server.ts" },
+      "start": { "command": "node dist/server.js", "dependsOn": ["build"] },
+      "test": { "command": "jest --runInBand", "outputs": ["{workspaceRoot}/coverage"] },
+      "test-coverage": { "command": "jest --runInBand --coverage", "outputs": ["{workspaceRoot}/coverage"] },
+      "typecheck": { "command": "tsc --noEmit" }
+    }
   }
 }

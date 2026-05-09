@@ -103,13 +103,13 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 2.1 | Add Nx development dependency | TODO | P0 | 1.1, 1.2 | Root `package.json` includes Nx dev dependency and lockfile is updated |
-| 2.2 | Add `nx.json` | TODO | P0 | 2.1 | Nx workspace config exists with named inputs and cacheable target defaults |
-| 2.3 | Add npm workspaces | TODO | P0 | 1.3 | Root `package.json` includes `workspaces: ["apps/*"]` |
-| 2.4 | Convert root package scripts to workspace orchestration | TODO | P0 | 2.2, 2.3 | Root scripts call Nx targets such as `nx build backend`, `nx test backend`, and `nx run-many` |
-| 2.5 | Add `tsconfig.base.json` | TODO | P0 | 1.5 | Shared TypeScript compiler defaults and future path aliases live at the root |
-| 2.6 | Keep Biome as the workspace formatter/linter | TODO | P1 | Existing project decision | Root `biome.json` can lint and format root docs/config plus app code |
-| 2.7 | Keep root README workspace-oriented | TODO | P2 | 2.4 | README describes monorepo commands and links backend docs/plans |
+| 2.1 | Add Nx development dependency | DONE | P0 | 1.1, 1.2 | Root `package.json` includes `nx` as a dev dependency and `package-lock.json` is updated |
+| 2.2 | Add `nx.json` | DONE | P0 | 2.1 | Nx workspace config exists with named inputs and cacheable target defaults |
+| 2.3 | Add npm workspaces | DONE | P0 | 1.3 | Root `package.json` includes `workspaces: ["apps/*"]` and is marked private |
+| 2.4 | Convert root package scripts to workspace orchestration | DONE | P0 | 2.2, 2.3 | Root scripts call Nx targets for backend build, test, lint, typecheck, serve, start, and DynamoDB helpers |
+| 2.5 | Add `tsconfig.base.json` | DONE | P0 | 1.5 | Shared TypeScript compiler defaults live at the root and current `tsconfig.json` extends them |
+| 2.6 | Keep Biome as the workspace formatter/linter | DONE | P1 | Existing project decision | Root `biome.json` remains the workspace formatter/linter configuration |
+| 2.7 | Keep root README workspace-oriented | DONE | P2 | 2.4 | README describes monorepo commands and links backend docs/plans |
 
 ## Phase 3: Backend Relocation
 

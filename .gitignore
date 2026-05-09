@@ -26,6 +26,7 @@ pnpm-debug.log*
 
 # Local caches
 .cache/
+.nx/
 .turbo/
 .eslintcache
 
