@@ -79,16 +79,16 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 3.1 | Create app factory that builds Fastify without listening | TODO | P0 | 2.7 | Tests can instantiate app without opening a port |
-| 3.2 | Create local server entrypoint | TODO | P0 | 3.1 | Local `dev` script starts HTTP server |
-| 3.3 | Configure Fastify logger using Pino | TODO | P0 | 3.1 | Structured logs emitted |
-| 3.4 | Configure request IDs and correlation ID behavior | TODO | P1 | 3.3 | Requests have traceable IDs |
-| 3.5 | Add global error handler | TODO | P0 | 3.1 | Errors return consistent JSON responses |
-| 3.6 | Add not-found handler | TODO | P1 | 3.1 | Unknown routes return consistent 404 response |
-| 3.7 | Add health route | TODO | P0 | 3.1 | `GET /health` returns service status |
-| 3.8 | Register core plugins in deterministic order | TODO | P0 | 3.1 | App startup is predictable |
-| 3.9 | Define API route prefix | TODO | P1 | 1.14, 3.1 | Routes are namespaced consistently |
-| 3.10 | Add graceful shutdown for local server | TODO | P2 | 3.2 | Local server handles shutdown signals |
+| 3.1 | Create app factory that builds Fastify without listening | DONE | P0 | 2.7 | `buildApp()` creates a Fastify instance and is covered by injection tests |
+| 3.2 | Create local server entrypoint | DONE | P0 | 3.1 | `src/server.ts` starts the app through the `dev`/`start` scripts |
+| 3.3 | Configure Fastify logger using Pino | DONE | P0 | 3.1 | App factory accepts Fastify/Pino logger options; local server sets level and redaction |
+| 3.4 | Configure request IDs and correlation ID behavior | DONE | P1 | 3.3 | `x-request-id` and `x-correlation-id` response headers are set globally |
+| 3.5 | Add global error handler | DONE | P0 | 3.1 | Errors return consistent JSON with code, message, statusCode, and requestId |
+| 3.6 | Add not-found handler | DONE | P1 | 3.1 | Unknown routes return consistent `ROUTE_NOT_FOUND` response |
+| 3.7 | Add health route | DONE | P0 | 3.1 | `GET /health` returns `{ "status": "ok" }` |
+| 3.8 | Register core plugins in deterministic order | DONE | P0 | 3.1 | Error handlers, request context, health, and API routes register in app factory order |
+| 3.9 | Define API route prefix | DONE | P1 | 1.14, 3.1 | v1 routes are registered under `/api/v1` |
+| 3.10 | Add graceful shutdown for local server | DONE | P2 | 3.2 | Local server handles `SIGINT` and `SIGTERM` by closing Fastify |
 
 ## Phase 4: Configuration Foundation
 

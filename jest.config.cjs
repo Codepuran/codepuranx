@@ -5,6 +5,10 @@ module.exports = {
   coverageDirectory: "coverage",
   extensionsToTreatAsEsm: [".ts"],
   moduleFileExtensions: ["ts", "js", "json"],
+  moduleNameMapper: {
+    "^\\.\\./\\.\\./src/(.*)\\.js$": "<rootDir>/src/$1.ts",
+    "^\\./(plugins|routes)/(.*)\\.js$": "<rootDir>/src/$1/$2.ts",
+  },
   passWithNoTests: true,
   testEnvironment: "node",
   testMatch: ["**/tests/**/*.test.ts"],
