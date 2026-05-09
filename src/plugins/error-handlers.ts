@@ -1,5 +1,6 @@
 import type { ErrorObject } from 'ajv';
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { type DomainErrorCode, isDomainError } from '../services/errors.js';
 
 type ErrorDetail = { instancePath?: string; keyword?: string; message?: string; schemaPath?: string };
 
@@ -54,6 +55,18 @@ const messageFromError = (error: FastifyError, statusCode: number): string => {
   return error.message;
 };
 
+const statusCodeFromDomainCode = (code: DomainErrorCode): number => {
+  if (code === 'ALREADY_EXISTS' || code === 'CONFLICT') {
+    return 409;
+  }
+
+  if (code === 'NOT_FOUND') {
+    return 404;
+  }
+
+  return 500;
+};
+
 const sendError = (
   request: FastifyRequest,
   reply: FastifyReply,
@@ -71,6 +84,20 @@ const sendError = (
 
 export const registerErrorHandlers = (app: FastifyInstance): void => {
   app.setErrorHandler((error, request, reply) => {
+    if (isDomainError(error)) {
+      const statusCode = statusCodeFromDomainCode(error.code);
+      const message = statusCode >= 500 ? 'Internal server error' : error.message;
+
+      if (statusCode >= 500) {
+        request.log.error({ error }, 'request failed');
+      } else {
+        request.log.info({ error }, 'request rejected');
+      }
+
+      sendError(request, reply, statusCode, error.code, message);
+      return;
+    }
+
     const fastifyError = error as FastifyError;
     const statusCode = statusCodeFromError(fastifyError);
     const code = codeFromError(fastifyError, statusCode);

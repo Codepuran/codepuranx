@@ -7,9 +7,10 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: {
     '^\\.\\./\\.\\./src/(.*)\\.js$': '<rootDir>/src/$1.ts',
-    '^\\.\\./(db|domain|repositories|schemas)/(.*)\\.js$': '<rootDir>/src/$1/$2.ts',
+    '^\\.\\./(db|domain|repositories|schemas|services)/(.*)\\.js$': '<rootDir>/src/$1/$2.ts',
     '^\\.\\./helpers/(.*)\\.js$': '<rootDir>/tests/helpers/$1.ts',
     '^\\./(clock|records)\\.js$': '<rootDir>/src/repositories/$1.ts',
+    '^\\./(errors|repository-errors|role-service|todo-service|user-service)\\.js$': '<rootDir>/src/services/$1.ts',
     '^\\./(plugins|routes|schemas)/(.*)\\.js$': '<rootDir>/src/$1/$2.ts',
   },
   passWithNoTests: true,

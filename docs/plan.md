@@ -143,26 +143,26 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 8.1 | Implement DI registration approach | TODO | P0 | 1.6, 3.1 | Dependencies available through chosen mechanism |
-| 8.2 | Add TypeScript module augmentation if using Fastify decorators | TODO | P0 | 8.1 | Decorated properties are typed |
-| 8.3 | Create Todo service | TODO | P1 | 7.6, 8.1 | Todo business operations implemented |
-| 8.4 | Create User service | TODO | P1 | 7.7, 8.1 | User business operations implemented |
-| 8.5 | Create Role service | TODO | P1 | 7.8, 8.1 | Role business operations implemented |
-| 8.6 | Keep service layer independent from HTTP details | TODO | P1 | 8.3, 8.4, 8.5 | Services can be unit tested without Fastify |
-| 8.7 | Define domain-level errors | TODO | P1 | 8.3, 8.4, 8.5 | Services throw known errors |
+| 8.1 | Implement DI registration approach | DONE | P0 | 1.6, 3.1 | `createAppDependencies()` and dependency plugin expose app services through decorators |
+| 8.2 | Add TypeScript module augmentation if using Fastify decorators | DONE | P0 | 8.1 | `appConfig`, `dynamo`, `repositories`, and `services` decorators are typed |
+| 8.3 | Create Todo service | DONE | P1 | 7.6, 8.1 | Todo create/get/list/update/delete service operations implemented |
+| 8.4 | Create User service | DONE | P1 | 7.7, 8.1 | User create/get/update/delete service operations implemented |
+| 8.5 | Create Role service | DONE | P1 | 7.8, 8.1 | Role create/get/update/delete service operations implemented |
+| 8.6 | Keep service layer independent from HTTP details | DONE | P1 | 8.3, 8.4, 8.5 | Services depend on repository ports and are unit tested without Fastify |
+| 8.7 | Define domain-level errors | DONE | P1 | 8.3, 8.4, 8.5 | `DomainError` codes are mapped by services and the global error handler |
 
 ## Phase 9: Authentication And RBAC
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 9.1 | Define v1 auth model | TODO | P1 | 1.12 | Auth mechanism documented |
-| 9.2 | Add auth plugin/hook | TODO | P1 | 9.1, 3.8 | Protected routes can identify a user/principal |
-| 9.3 | Add request principal type | TODO | P1 | 9.2 | `request.user` or equivalent is typed |
-| 9.4 | Define permissions | TODO | P1 | 1.13 | Permissions for Todo/User/Role CRUD exist |
-| 9.5 | Define role-to-permission mapping | TODO | P1 | 9.4 | Role policy is explicit |
-| 9.6 | Add authorization helper/decorator | TODO | P1 | 9.2, 9.5 | Routes can require permissions consistently |
-| 9.7 | Apply RBAC to CRUD routes | TODO | P1 | 9.6, 10.1 | Unauthorized requests are rejected |
-| 9.8 | Add auth/RBAC tests | TODO | P1 | 9.7, 12.1 | Auth behavior is covered |
+| 9.1 | Define v1 auth model | DEFERRED | P1 | 1.12 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.2 | Add auth plugin/hook | DEFERRED | P1 | 9.1, 3.8 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.3 | Add request principal type | DEFERRED | P1 | 9.2 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.4 | Define permissions | DEFERRED | P1 | 1.13 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.5 | Define role-to-permission mapping | DEFERRED | P1 | 9.4 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.6 | Add authorization helper/decorator | DEFERRED | P1 | 9.2, 9.5 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.7 | Apply RBAC to CRUD routes | DEFERRED | P1 | 9.6, 10.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.8 | Add auth/RBAC tests | DEFERRED | P1 | 9.7, 12.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 
 ## Phase 10: HTTP Routes And Controllers
 

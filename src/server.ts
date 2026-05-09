@@ -3,7 +3,7 @@ import { createLoggerOptions, loadConfig } from './config/index.js';
 
 const config = loadConfig();
 
-const app = await buildApp({ logger: createLoggerOptions(config) });
+const app = await buildApp({ config, logger: createLoggerOptions(config) });
 
 const close = async (signal: NodeJS.Signals): Promise<void> => {
   app.log.info({ signal }, 'closing server');
