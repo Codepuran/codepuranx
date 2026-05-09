@@ -209,24 +209,24 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 13.1 | Configure selected linter | TODO | P0 | 1.9, 2.3 | `lint` command works |
-| 13.2 | Configure selected formatter | TODO | P0 | 1.9, 2.3 | `format` command works |
-| 13.3 | Add EditorConfig | TODO | P2 | None | Basic editor consistency exists |
-| 13.4 | Add typecheck command | TODO | P0 | 2.4 | `typecheck` command works |
-| 13.5 | Add build verification command | TODO | P0 | 1.10, 2.6 | `build` command works |
-| 13.6 | Add all-in-one check command | TODO | P1 | 12.1, 13.1, 13.4, 13.5 | One command runs quality gates |
-| 13.7 | Decide pre-commit hooks timing | DISCUSS | P2 | 13.1, 13.2 | Hook decision recorded |
+| 13.1 | Configure selected linter | DONE | P0 | 1.9, 2.3 | Biome is configured and `npm run lint` works |
+| 13.2 | Configure selected formatter | DONE | P0 | 1.9, 2.3 | Biome formatter is configured and `npm run format` works |
+| 13.3 | Add EditorConfig | DONE | P2 | None | `.editorconfig` defines basic editor consistency |
+| 13.4 | Add typecheck command | DONE | P0 | 2.4 | `npm run typecheck` works |
+| 13.5 | Add build verification command | DONE | P0 | 1.10, 2.6 | `npm run build` works |
+| 13.6 | Add all-in-one check command | DONE | P1 | 12.1, 13.1, 13.4, 13.5 | `npm run check` runs typecheck, lint, tests, and build |
+| 13.7 | Decide pre-commit hooks timing | DEFERRED | P2 | 13.1, 13.2 | Deferred until CI setup or team collaboration requires local hooks |
 
 ## Phase 14: API Documentation And Developer UX
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 14.1 | Add README setup instructions | TODO | P1 | 2.6, 6.5 | New developer can run the app |
-| 14.2 | Add local DynamoDB instructions | TODO | P1 | 6.5 | Local DB setup is documented |
-| 14.3 | Add sample request collection or curl examples | TODO | P2 | 10.2, 10.7, 10.8 | CRUD can be manually tested |
-| 14.4 | Add seed/sample data command if useful | TODO | P2 | 7.6, 7.7, 7.8 | Sample data can be created |
-| 14.5 | Add OpenAPI generation if included | TODO | P2 | 1.15, 10.10 | API docs are available |
-| 14.6 | Add architecture notes | TODO | P2 | 1.5, 1.6, 1.7, 1.11 | Key decisions are documented |
+| 14.1 | Add README setup instructions | DEFERRED | P1 | 2.6, 6.5 | Deferred until after local CRUD/manual testing |
+| 14.2 | Add local DynamoDB instructions | DEFERRED | P1 | 6.5 | Deferred until after local CRUD/manual testing |
+| 14.3 | Add sample request collection or curl examples | DEFERRED | P2 | 10.2, 10.7, 10.8 | Deferred until after local CRUD/manual testing |
+| 14.4 | Add seed/sample data command if useful | DEFERRED | P2 | 7.6, 7.7, 7.8 | Deferred until after local CRUD/manual testing |
+| 14.5 | Add OpenAPI generation if included | DEFERRED | P2 | 1.15, 10.10 | Deferred until after local CRUD/manual testing |
+| 14.6 | Add architecture notes | DEFERRED | P2 | 1.5, 1.6, 1.7, 1.11 | Deferred until after local CRUD/manual testing |
 
 ## Phase 15: Security And Operational Hardening
 
