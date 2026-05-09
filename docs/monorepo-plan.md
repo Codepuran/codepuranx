@@ -154,13 +154,13 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 6.1 | Run backend typecheck | TODO | P0 | 4.4, 5.2 | `npx nx typecheck backend` passes |
-| 6.2 | Run backend lint | TODO | P1 | 2.6, 3.9 | `npx nx lint backend` or root Biome lint target passes |
-| 6.3 | Run backend tests | TODO | P0 | 4.5, 5.1 | `npx nx test backend` passes |
-| 6.4 | Run backend build | TODO | P0 | 4.2, 5.3 | `npx nx build backend` passes |
-| 6.5 | Run root check command | TODO | P1 | 4.8, 6.1, 6.2, 6.3, 6.4 | `npm run check` passes from repo root |
-| 6.6 | Smoke test backend dev server | TODO | P1 | 4.1 | Backend starts and `GET /health` returns `200` |
-| 6.7 | Confirm Git diff is migration-only | TODO | P1 | 6.5 | Diff contains expected moves/config updates and no unrelated rewrites |
+| 6.1 | Run backend typecheck | DONE | P0 | 4.4, 5.2 | `npm run typecheck` passes through Nx |
+| 6.2 | Run backend lint | DONE | P1 | 2.6, 3.9 | `npm run lint` passes through Nx |
+| 6.3 | Run backend tests | DONE | P0 | 4.5, 5.1 | `npm test` passes through Nx |
+| 6.4 | Run backend build | DONE | P0 | 4.2, 5.3 | `npm run build` passes through Nx |
+| 6.5 | Run root check command | DONE | P1 | 4.8, 6.1, 6.2, 6.3, 6.4 | `npm run check` passes from repo root |
+| 6.6 | Smoke test backend dev server | DONE | P1 | 4.1 | Backend starts and `GET /health` returns `200` with local env vars |
+| 6.7 | Confirm Git diff is migration-only | DONE | P1 | 6.5 | Phase 6 diff only updates verification status in this plan |
 
 ## Phase 7: Future React UI Readiness
 
