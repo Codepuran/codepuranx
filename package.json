@@ -23,8 +23,5 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.14",
-    "nx": "^22.7.1"
-  }
+  "devDependencies": { "@biomejs/biome": "^2.4.14", "nx": "^22.7.1" }
 }

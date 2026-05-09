@@ -13,6 +13,12 @@ Configuration is loaded once from environment variables through `apps/backend/sr
 - `HOST`: defaults to `127.0.0.1`.
 - `PORT`: defaults to `3000`.
 - `LOG_LEVEL`: defaults to `info`; uses Pino log levels.
+- `LOG_CONSOLE_ENABLED`: defaults to `true`; writes structured JSON logs to stdout.
+- `LOG_FILE_ENABLED`: defaults to `true`; writes structured JSON logs to a rotated file.
+- `LOG_FILE_PATH`: defaults to `logs/backend.log`.
+- `LOG_ROTATION_FREQUENCY`: defaults to `daily`; allowed values are `hourly`, `daily`, and `weekly`.
+- `LOG_ROTATION_SIZE`: defaults to `10m`; rotates the file when this size is reached.
+- `LOG_RETENTION_COUNT`: defaults to `7`; keeps this many rotated files.
 - `DYNAMODB_REGION`: defaults to `us-east-1`.
 - `DYNAMODB_ENDPOINT`: optional local DynamoDB endpoint.
 - `JWT_EXPIRES_IN`: defaults to `1h`.
@@ -40,4 +46,22 @@ Lambda:
 
 ## Logging
 
-Logger configuration is derived from `LOG_LEVEL` and includes redaction for authorization headers, cookies, and JWT secret paths.
+Logger configuration is derived from the `LOG_*` variables.
+
+The backend uses Fastify's Pino logger with two default outputs:
+
+- Console output through `pino/file` with stdout destination `1`.
+- Rotated file output through `pino-roll`.
+
+File logs are written to `LOG_FILE_PATH`, the directory is created automatically, and rotation happens when either `LOG_ROTATION_FREQUENCY` or `LOG_ROTATION_SIZE` is reached.
+
+Sensitive values are redacted from logs:
+
+- `req.headers.authorization`
+- `req.headers.cookie`
+- `req.headers["x-api-key"]`
+- `req.headers["x-amz-security-token"]`
+- `config.jwt.secret`
+- `jwt.secret`
+
+Lambda-specific log shaping is intentionally deferred.

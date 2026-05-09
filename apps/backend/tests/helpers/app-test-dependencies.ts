@@ -6,7 +6,12 @@ import type { UserService } from '../../src/services/user-service.js';
 
 export const testConfig: AppConfig = {
   server: { env: 'test', host: '127.0.0.1', port: 0 },
-  logger: { level: 'silent', redact: [] },
+  logger: {
+    level: 'silent',
+    redact: [],
+    console: { enabled: false },
+    file: { enabled: false, path: 'logs/test.log', rotationFrequency: 'daily', rotationSize: '10m', retentionCount: 1 },
+  },
   dynamodb: { region: 'us-east-1', tableName: 'test-table', endpoint: 'http://127.0.0.1:8000' },
   jwt: { secret: 'test-secret', expiresIn: '1h' },
   openapi: { routePrefix: '/docs' },
