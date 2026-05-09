@@ -1,3 +1,4 @@
+import "dotenv/config";
 import type { FastifyServerOptions } from "fastify";
 
 const NODE_ENV_VALUES = ["development", "test", "production"] as const;

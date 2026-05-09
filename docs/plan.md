@@ -114,15 +114,15 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 6.1 | Document DynamoDB access patterns for Todos, Users, Roles | TODO | P0 | 1.11 | Access patterns listed before code |
-| 6.2 | Design table keys and indexes | TODO | P0 | 6.1 | PK/SK/GSI design documented |
-| 6.3 | Add DynamoDB client factory | TODO | P0 | 2.2, 4.2 | Client supports local and AWS endpoints |
-| 6.4 | Add DynamoDB document client wrapper if chosen | TODO | P0 | 6.3 | Repository code avoids low-level marshalling noise |
-| 6.5 | Add table creation/setup script for local development | TODO | P1 | 6.2 | Local table can be created repeatably |
-| 6.6 | Add DynamoDB health/check script | TODO | P1 | 6.3 | Developer can verify local DynamoDB connectivity |
-| 6.7 | Define repository error mapping | TODO | P0 | 3.5, 6.3 | Conditional failures and missing records map cleanly |
-| 6.8 | Add pagination helpers | TODO | P1 | 6.3 | Repositories support cursor-style pagination where needed |
-| 6.9 | Avoid scans in normal CRUD paths | TODO | P0 | 6.2 | Access patterns use key queries or direct item operations |
+| 6.1 | Document DynamoDB access patterns for Todos, Users, Roles | DONE | P0 | 1.11 | `docs/dynamodb.md` lists v1 access patterns |
+| 6.2 | Design table keys and indexes | DONE | P0 | 6.1 | Single-table design uses only `pk` and `sk`; no GSIs in v1 |
+| 6.3 | Add DynamoDB client factory | DONE | P0 | 2.2, 4.2 | `src/db/client.ts` creates local/AWS DynamoDB clients from config |
+| 6.4 | Add DynamoDB document client wrapper if chosen | DONE | P0 | 6.3 | Document client wrapper removes low-level marshalling noise |
+| 6.5 | Add table creation/setup script for local development | DONE | P1 | 6.2 | `npm run dynamo:setup` creates a local-compatible `pk`/`sk` table |
+| 6.6 | Add DynamoDB health/check script | DONE | P1 | 6.3 | `npm run dynamo:check` describes the configured table |
+| 6.7 | Define repository error mapping | DONE | P0 | 3.5, 6.3 | `src/db/errors.ts` maps common DynamoDB errors to repository errors |
+| 6.8 | Add pagination helpers | DONE | P1 | 6.3 | Cursor encode/decode and limit normalization helpers exist |
+| 6.9 | Avoid scans in normal CRUD paths | DONE | P0 | 6.2 | v1 design explicitly avoids scans and only supports primary-key access patterns |
 
 ## Phase 7: Domain Model And Data Access
 
