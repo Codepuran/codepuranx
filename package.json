@@ -1,0 +1,47 @@
+{
+  "name": "codepuranx",
+  "version": "1.0.0",
+  "description": "This repository will contain a Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.",
+  "type": "module",
+  "main": "dist/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "swc src -d dist --copy-files",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build",
+    "dev": "tsx watch src/server.ts",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "start": "node dist/server.js",
+    "test": "jest --runInBand",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1045.0",
+    "@aws-sdk/lib-dynamodb": "^3.1045.0",
+    "@fastify/jwt": "^10.0.0",
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.6",
+    "fastify": "~5.8.0",
+    "pino": "^10.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
+    "@swc/cli": "^0.8.1",
+    "@swc/core": "^1.15.33",
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.12.3",
+    "jest": "^29.7.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}

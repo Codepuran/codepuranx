@@ -65,15 +65,15 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 2.1 | Initialize Node project | TODO | P0 | 1.3 | `package.json` created |
-| 2.2 | Add runtime dependencies | TODO | P0 | 1.1, 1.7, 1.11, 1.12 | Fastify, Pino-related packages, AWS SDK, validation/auth packages installed |
-| 2.3 | Add development dependencies | TODO | P0 | 1.8, 1.9, 1.10 | TypeScript, test, lint, format, build tools installed |
-| 2.4 | Add TypeScript config | TODO | P0 | 1.4 | Strict TypeScript config exists |
-| 2.5 | Add Node version file | TODO | P0 | 1.2 | `.nvmrc` or equivalent exists |
-| 2.6 | Add package scripts | TODO | P0 | 2.1 | `dev`, `build`, `start`, `test`, `typecheck`, `lint`, `format` scripts exist |
-| 2.7 | Create base source folders | TODO | P0 | 1.5 | `src` structure exists |
-| 2.8 | Create test folder structure | TODO | P1 | 1.8 | Unit and integration test locations exist |
-| 2.9 | Add environment example file | TODO | P1 | 1.11 | `.env.example` documents required variables |
+| 2.1 | Initialize Node project | DONE | P0 | 1.3 | `package.json` created with npm |
+| 2.2 | Add runtime dependencies | DONE | P0 | 1.1, 1.7, 1.11, 1.12 | Fastify 5.8.x, Pino, AWS SDK DynamoDB packages, JWT, and OpenAPI packages installed |
+| 2.3 | Add development dependencies | DONE | P0 | 1.8, 1.9, 1.10 | TypeScript, Jest, Biome, SWC, tsx, and Node/Jest types installed |
+| 2.4 | Add TypeScript config | DONE | P0 | 1.4 | Strict ESM/NodeNext `tsconfig.json` exists |
+| 2.5 | Add Node version file | DONE | P0 | 1.2 | `.nvmrc` pins `v24.11.1` |
+| 2.6 | Add package scripts | DONE | P0 | 2.1 | `dev`, `build`, `start`, `test`, `typecheck`, `lint`, `format`, and `check` scripts exist |
+| 2.7 | Create base source folders | DONE | P0 | 1.5 | `src` plugin-oriented structure exists |
+| 2.8 | Create test folder structure | DONE | P1 | 1.8 | Unit, integration, and helper test directories exist |
+| 2.9 | Add environment example file | DONE | P1 | 1.11 | `.env.example` documents local API, DynamoDB, JWT, and OpenAPI variables |
 
 ## Phase 3: Fastify App Foundation
 
