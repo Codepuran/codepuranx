@@ -1,5 +1,5 @@
-import type { ErrorObject } from "ajv";
-import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { ErrorObject } from 'ajv';
+import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 
 type ErrorDetail = { instancePath?: string; keyword?: string; message?: string; schemaPath?: string };
 
@@ -7,7 +7,7 @@ type ErrorResponse = {
   error: { code: string; details?: ErrorDetail[]; message: string; requestId: string; statusCode: number };
 };
 
-const validationDetails = (validation: FastifyError["validation"]): ErrorDetail[] | undefined => {
+const validationDetails = (validation: FastifyError['validation']): ErrorDetail[] | undefined => {
   if (!validation || validation.length === 0) {
     return undefined;
   }
@@ -23,7 +23,7 @@ const validationDetails = (validation: FastifyError["validation"]): ErrorDetail[
 };
 
 const statusCodeFromError = (error: FastifyError): number => {
-  if (typeof error.statusCode === "number" && error.statusCode >= 400) {
+  if (typeof error.statusCode === 'number' && error.statusCode >= 400) {
     return error.statusCode;
   }
 
@@ -36,19 +36,19 @@ const statusCodeFromError = (error: FastifyError): number => {
 
 const codeFromError = (error: FastifyError, statusCode: number): string => {
   if (error.validation) {
-    return "VALIDATION_ERROR";
+    return 'VALIDATION_ERROR';
   }
 
   if (error.code) {
     return error.code;
   }
 
-  return statusCode >= 500 ? "INTERNAL_SERVER_ERROR" : "HTTP_ERROR";
+  return statusCode >= 500 ? 'INTERNAL_SERVER_ERROR' : 'HTTP_ERROR';
 };
 
 const messageFromError = (error: FastifyError, statusCode: number): string => {
   if (statusCode >= 500) {
-    return "Internal server error";
+    return 'Internal server error';
   }
 
   return error.message;
@@ -78,15 +78,15 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
     const details = validationDetails(fastifyError.validation);
 
     if (statusCode >= 500) {
-      request.log.error({ error }, "request failed");
+      request.log.error({ error }, 'request failed');
     } else {
-      request.log.info({ error }, "request rejected");
+      request.log.info({ error }, 'request rejected');
     }
 
     sendError(request, reply, statusCode, code, message, details);
   });
 
   app.setNotFoundHandler((request, reply) => {
-    sendError(request, reply, 404, "ROUTE_NOT_FOUND", "Route not found");
+    sendError(request, reply, 404, 'ROUTE_NOT_FOUND', 'Route not found');
   });
 };

@@ -1,4 +1,4 @@
-import type { NativeAttributeValue } from "@aws-sdk/lib-dynamodb";
+import type { NativeAttributeValue } from '@aws-sdk/lib-dynamodb';
 
 export type DynamoCursorKey = Record<string, NativeAttributeValue>;
 
@@ -11,7 +11,7 @@ export const encodeCursor = (key: DynamoCursorKey | undefined): string | undefin
     return undefined;
   }
 
-  return Buffer.from(JSON.stringify(key), "utf8").toString("base64url");
+  return Buffer.from(JSON.stringify(key), 'utf8').toString('base64url');
 };
 
 export const decodeCursor = (cursor: string | undefined): DynamoCursorKey | undefined => {
@@ -19,12 +19,12 @@ export const decodeCursor = (cursor: string | undefined): DynamoCursorKey | unde
     return undefined;
   }
 
-  const decoded = Buffer.from(cursor, "base64url").toString("utf8");
+  const decoded = Buffer.from(cursor, 'base64url').toString('utf8');
   return JSON.parse(decoded) as DynamoCursorKey;
 };
 
 export const normalizeLimit = (limit: number | undefined, fallback = 20, max = 100): number => {
-  if (!Number.isInteger(limit) || typeof limit !== "number") {
+  if (!Number.isInteger(limit) || typeof limit !== 'number') {
     return fallback;
   }
 
