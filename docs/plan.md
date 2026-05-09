@@ -33,9 +33,9 @@ Each task should be updated with:
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
 | 0.1 | Confirm repo starts clean and intentionally has no Git history | DONE | P0 | None | Verified no `.git` repo exists; workspace contains `docs/plan.md`, `docs/wishlist.md`, and Codex metadata |
-| 0.2 | Decide whether to initialize Git now or after first scaffold | DISCUSS | P0 | 0.1 | Decision captured in this file |
-| 0.3 | Create initial `.gitignore` | TODO | P0 | 0.2 | Ignores `node_modules`, build output, env files, coverage, logs |
-| 0.4 | Create initial `README.md` placeholder | TODO | P2 | 0.2 | Explains project purpose and basic scripts |
+| 0.2 | Decide whether to initialize Git now or after first scaffold | DONE | P0 | 0.1 | Git initialized now with `main` as baseline branch and `dev` as regular coding branch |
+| 0.3 | Create initial `.gitignore` | DONE | P0 | 0.2 | Ignores Node dependencies, build output, env files, coverage, logs, editor files, and Codex metadata |
+| 0.4 | Create initial `README.md` placeholder | DONE | P2 | 0.2 | Explains project purpose and links planning docs |
 | 0.5 | Keep `docs/wishlist.md` as the source of debated requirements | DONE | P0 | None | Wishlist exists |
 | 0.6 | Keep `docs/plan.md` as the source of execution tracking | DONE | P0 | None | Plan exists |
 
@@ -352,7 +352,7 @@ Use this section to record decisions as we make them.
 
 | Date | Decision | Rationale | Impact |
 | --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD |
+| 2026-05-09 | Initialize Git immediately using `main` as the initial branch and `dev` for regular coding | Keep the planning baseline stable on `main` before implementation begins | Future implementation work happens on `dev` |
 
 ## Deferred Ideas
 
