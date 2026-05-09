@@ -194,16 +194,16 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 12.1 | Configure selected test framework | TODO | P0 | 1.8, 2.3 | Test command runs |
-| 12.2 | Add test helpers for Fastify injection | TODO | P1 | 3.1, 12.1 | Routes can be tested without network port |
-| 12.3 | Add unit tests for config validation | TODO | P1 | 4.3, 12.1 | Config failures are covered |
-| 12.4 | Add unit tests for services | TODO | P1 | 8.3, 8.4, 8.5, 12.1 | Service behavior is covered |
-| 12.5 | Add unit tests for RBAC policies | TODO | P1 | 9.5, 12.1 | Permission matrix is covered |
-| 12.6 | Add repository tests with DynamoDB local or mocked client | TODO | P1 | 6.5, 7.6, 7.7, 7.8 | Data access is covered |
-| 12.7 | Add route integration tests | TODO | P1 | 10.2, 10.7, 10.8, 12.2 | CRUD routes are covered |
-| 12.8 | Add validation error tests | TODO | P1 | 5.3, 10.10, 12.2 | Bad requests return expected errors |
-| 12.9 | Add auth-protected route tests | TODO | P1 | 9.7, 12.2 | 401/403 paths are covered |
-| 12.10 | Add coverage reporting if useful | TODO | P2 | 12.1 | Coverage command exists |
+| 12.1 | Configure selected test framework | DONE | P0 | 1.8, 2.3 | Jest is configured and `npm test` runs |
+| 12.2 | Add test helpers for Fastify injection | DONE | P1 | 3.1, 12.1 | App injection tests use `buildApp()` without a network port and mocked dependencies where needed |
+| 12.3 | Add unit tests for config validation | DONE | P1 | 4.3, 12.1 | Config success and failure paths are covered |
+| 12.4 | Add unit tests for services | DONE | P1 | 8.3, 8.4, 8.5, 12.1 | Todo, User, and Role service behavior is covered |
+| 12.5 | Add unit tests for RBAC policies | DEFERRED | P1 | 9.5, 12.1 | Deferred because Phase 9 auth/RBAC is deferred |
+| 12.6 | Add repository tests with DynamoDB local or mocked client | DONE | P1 | 6.5, 7.6, 7.7, 7.8 | Repository command behavior is covered with a fake document client |
+| 12.7 | Add route integration tests | DONE | P1 | 10.2, 10.7, 10.8, 12.2 | CRUD routes are covered through Fastify injection |
+| 12.8 | Add validation error tests | DONE | P1 | 5.3, 10.10, 12.2 | Bad requests return the standard validation error shape |
+| 12.9 | Add auth-protected route tests | DEFERRED | P1 | 9.7, 12.2 | Deferred because Phase 9 auth/RBAC is deferred |
+| 12.10 | Add coverage reporting if useful | DONE | P2 | 12.1 | `npm run test:coverage` exists |
 
 ## Phase 13: Linting, Formatting, And Quality Gates
 
