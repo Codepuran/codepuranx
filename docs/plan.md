@@ -128,16 +128,16 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 7.1 | Define Todo domain model | TODO | P1 | 5.4, 6.1 | Todo type/schema exists |
-| 7.2 | Define User domain model | TODO | P1 | 5.4, 6.1 | User type/schema exists |
-| 7.3 | Define Role domain model | TODO | P1 | 5.4, 6.1 | Role type/schema exists |
-| 7.4 | Define persistence record shapes | TODO | P1 | 6.2, 7.1, 7.2, 7.3 | DynamoDB item shapes exist |
-| 7.5 | Add mappers between domain and persistence records | TODO | P1 | 7.4 | Repository boundaries are explicit |
-| 7.6 | Create Todo repository | TODO | P1 | 6.7, 7.5 | Todo CRUD storage operations implemented |
-| 7.7 | Create User repository | TODO | P1 | 6.7, 7.5 | User CRUD storage operations implemented |
-| 7.8 | Create Role repository | TODO | P1 | 6.7, 7.5 | Role CRUD storage operations implemented |
-| 7.9 | Add conditional create/update/delete behavior | TODO | P1 | 7.6, 7.7, 7.8 | Duplicate/missing records handled correctly |
-| 7.10 | Add timestamps and versioning strategy | TODO | P1 | 7.4 | Records include created/updated metadata |
+| 7.1 | Define Todo domain model | DONE | P1 | 5.4, 6.1 | Todo type exists with status, timestamps, and version |
+| 7.2 | Define User domain model | DONE | P1 | 5.4, 6.1 | User type exists with email, roles, timestamps, and version |
+| 7.3 | Define Role domain model | DONE | P1 | 5.4, 6.1 | Role type exists with permissions, timestamps, and version |
+| 7.4 | Define persistence record shapes | DONE | P1 | 6.2, 7.1, 7.2, 7.3 | DynamoDB record shapes exist for User, Role, Todo, and email uniqueness guard |
+| 7.5 | Add mappers between domain and persistence records | DONE | P1 | 7.4 | Repository record mappers are explicit in `src/repositories/records.ts` |
+| 7.6 | Create Todo repository | DONE | P1 | 6.7, 7.5 | Todo create/get/list-by-user/update/delete operations implemented |
+| 7.7 | Create User repository | DONE | P1 | 6.7, 7.5 | User create/get/update/delete-by-id operations implemented; list is intentionally out of v1 |
+| 7.8 | Create Role repository | DONE | P1 | 6.7, 7.5 | Role create/get/update/delete-by-id operations implemented; list is intentionally out of v1 |
+| 7.9 | Add conditional create/update/delete behavior | DONE | P1 | 7.6, 7.7, 7.8 | Repositories use conditional writes for duplicates and missing records |
+| 7.10 | Add timestamps and versioning strategy | DONE | P1 | 7.4 | Records include `createdAt`, `updatedAt`, and incrementing `version` |
 
 ## Phase 8: Services And Dependency Injection
 

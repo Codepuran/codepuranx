@@ -47,7 +47,8 @@ Check or enforce user email uniqueness:
 
 List users:
 
-- Deferred for v1 unless we accept a dedicated listing partition or a GSI later.
+- Not supported in v1.
+- Users are expected to be very small in number, and v1 supports direct CRUD by id only.
 - A table scan is not allowed for normal API behavior.
 
 Create role:
@@ -60,7 +61,8 @@ Get role by id:
 
 List roles:
 
-- Deferred for v1 unless we accept a dedicated listing partition or a GSI later.
+- Not supported in v1.
+- Roles are expected to be very small in number, and v1 supports direct CRUD by id only.
 - A table scan is not allowed for normal API behavior.
 
 Create todo:
@@ -87,4 +89,3 @@ The local table setup creates:
 - Billing mode: `PAY_PER_REQUEST`
 - Attribute definitions: `pk` as string, `sk` as string
 - Key schema: `pk` hash key, `sk` range key
-
