@@ -183,12 +183,12 @@ These decisions should be made before scaffolding so the first implementation do
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 11.1 | Add Lambda handler entrypoint | TODO | P1 | 3.1, 1.10 | Handler can be imported by AWS Lambda |
-| 11.2 | Ensure app initialization is reusable across invocations | TODO | P1 | 11.1 | Expensive setup is cached safely |
-| 11.3 | Confirm Fastify adapter package and behavior | TODO | P1 | 1.1, 11.1 | Lambda event handling works |
-| 11.4 | Ensure DynamoDB client reuse across invocations | TODO | P1 | 6.3, 11.1 | Client is not recreated unnecessarily |
-| 11.5 | Add Lambda-focused build output | TODO | P1 | 1.10, 11.1 | Build produces deployable handler |
-| 11.6 | Add Lambda handler tests | TODO | P2 | 11.1, 12.1 | Basic event-to-response behavior is tested |
+| 11.1 | Add Lambda handler entrypoint | DEFERRED | P1 | 3.1, 1.10 | Deferred until after local CRUD/manual testing |
+| 11.2 | Ensure app initialization is reusable across invocations | DEFERRED | P1 | 11.1 | Deferred until after local CRUD/manual testing |
+| 11.3 | Confirm Fastify adapter package and behavior | DEFERRED | P1 | 1.1, 11.1 | Deferred until after local CRUD/manual testing |
+| 11.4 | Ensure DynamoDB client reuse across invocations | DEFERRED | P1 | 6.3, 11.1 | Deferred until after local CRUD/manual testing |
+| 11.5 | Add Lambda-focused build output | DEFERRED | P1 | 1.10, 11.1 | Deferred until after local CRUD/manual testing |
+| 11.6 | Add Lambda handler tests | DEFERRED | P2 | 11.1, 12.1 | Deferred until after local CRUD/manual testing |
 
 ## Phase 12: Testing Foundation
 
