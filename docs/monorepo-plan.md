@@ -74,7 +74,7 @@ Backend-owned files and directories:
 Future app locations:
 
 - `apps/ui` for the React frontend.
-- `apps/infra` or `infra` for infrastructure code, depending on the IaC tool decision.
+- `apps/infra` for future infrastructure code when the IaC tool is selected.
 - `libs/*` for shared packages only after a second app creates real shared-code pressure.
 
 ## Phase 0: Repository Baseline
@@ -90,14 +90,14 @@ Future app locations:
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 1.1 | Use open-source Nx without Nx Cloud as a required dependency | READY | P0 | None | Nx works locally with no required cloud login or remote cache |
-| 1.2 | Keep npm as the package manager | READY | P0 | Existing project decision | Root `package-lock.json` remains the committed lockfile |
-| 1.3 | Decide workspace style: Nx project graph with npm workspaces | READY | P0 | 1.2 | Root `package.json` declares workspaces for `apps/*` and Nx manages targets |
-| 1.4 | Decide backend project name | READY | P0 | None | Backend Nx project is named `backend` |
-| 1.5 | Decide root versus project-level config ownership | READY | P0 | 0.1 | Shared config is root-level; backend-specific config lives under `apps/backend` |
-| 1.6 | Decide whether to introduce shared libs during first migration | READY | P1 | None | No shared libs are created until `apps/ui` or infra needs shared code |
-| 1.7 | Decide frontend placeholder timing | READY | P3 | None | Do not create `apps/ui` during backend-only migration unless explicitly requested |
-| 1.8 | Decide infrastructure location | DISCUSS | P2 | None | Choose `apps/infra` for Nx-managed infra or root `infra` for tool-native IaC |
+| 1.1 | Use open-source Nx without Nx Cloud as a required dependency | DONE | P0 | None | Decision confirmed: Nx must work locally with no required cloud login or remote cache |
+| 1.2 | Keep npm as the package manager | DONE | P0 | Existing project decision | Decision confirmed: root `package-lock.json` remains the committed lockfile |
+| 1.3 | Decide workspace style: Nx project graph with npm workspaces | DONE | P0 | 1.2 | Decision confirmed: root `package.json` declares workspaces for `apps/*` and Nx manages targets |
+| 1.4 | Decide backend project name | DONE | P0 | None | Decision confirmed: backend Nx project is named `backend` |
+| 1.5 | Decide root versus project-level config ownership | DONE | P0 | 0.1 | Decision confirmed: shared config is root-level; backend-specific config lives under `apps/backend` |
+| 1.6 | Decide whether to introduce shared libs during first migration | DONE | P1 | None | Decision confirmed: no shared libs are created until `apps/ui` or infra needs shared code |
+| 1.7 | Decide frontend placeholder timing | DONE | P3 | None | Decision confirmed: do not create `apps/ui` during backend-only migration unless explicitly requested |
+| 1.8 | Decide infrastructure location | DONE | P2 | None | Decision confirmed: reserve `apps/infra` for future Nx-managed infrastructure once the IaC tool is selected |
 
 ## Phase 2: Nx Workspace Foundation
 
@@ -232,6 +232,7 @@ Use this section to record decisions as we make them.
 | 2026-05-10 | Keep `.agents`, `.codex`, and `docs` at repository root | These assets describe or configure the whole repository, not only the backend | Future apps can share the same planning and agent context |
 | 2026-05-10 | Keep npm as the package manager | The current project already uses npm and commits `package-lock.json` | Migration should update the existing lockfile rather than introduce another package manager |
 | 2026-05-10 | Do not create `apps/ui` during the first migration | The current implementation only has the backend | React app setup is deferred until frontend work starts |
+| 2026-05-10 | Reserve `apps/infra` for future infrastructure code | Keeping infra as an Nx project allows shared workspace commands, dependency graph visibility, and affected-project checks when IaC is added | No infra files are created during the backend-only migration |
 
 ## Deferred Ideas
 
