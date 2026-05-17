@@ -1,7 +1,6 @@
 import type { PageInput, PageResult } from '../db/pagination.js';
 import type { CreateTodoInput, Todo, UpdateTodoInput } from '../domain/todo.js';
 import { DomainError } from './errors.js';
-import { toCreateDomainError, toMutationDomainError } from './repository-errors.js';
 
 export type TodoRepositoryPort = {
   create(input: CreateTodoInput): Promise<Todo>;
@@ -15,11 +14,7 @@ export class TodoService {
   constructor(private readonly todoRepository: TodoRepositoryPort) {}
 
   async create(input: CreateTodoInput): Promise<Todo> {
-    try {
-      return await this.todoRepository.create(input);
-    } catch (error) {
-      throw toCreateDomainError('Todo', error);
-    }
+    return this.todoRepository.create(input);
   }
 
   async getById(userId: string, todoId: string): Promise<Todo> {
@@ -39,30 +34,18 @@ export class TodoService {
   async update(userId: string, todoId: string, input: UpdateTodoInput): Promise<Todo> {
     await this.getById(userId, todoId);
 
-    try {
-      const todo = await this.todoRepository.update(userId, todoId, input);
+    const todo = await this.todoRepository.update(userId, todoId, input);
 
-      if (!todo) {
-        throw new DomainError('Todo not found', 'NOT_FOUND');
-      }
-
-      return todo;
-    } catch (error) {
-      if (error instanceof DomainError) {
-        throw error;
-      }
-
-      throw toMutationDomainError('Todo', error);
+    if (!todo) {
+      throw new DomainError('Todo not found', 'NOT_FOUND');
     }
+
+    return todo;
   }
 
   async delete(userId: string, todoId: string): Promise<void> {
     await this.getById(userId, todoId);
 
-    try {
-      await this.todoRepository.delete(userId, todoId);
-    } catch (error) {
-      throw toMutationDomainError('Todo', error);
-    }
+    await this.todoRepository.delete(userId, todoId);
   }
 }

@@ -1,4 +1,9 @@
 import type { ErrorObject } from 'ajv';
+import {
+  ConditionalCheckFailedException,
+  ResourceInUseException,
+  ResourceNotFoundException,
+} from '@aws-sdk/client-dynamodb';
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { type DomainErrorCode, isDomainError } from '../services/errors.js';
 
@@ -71,6 +76,28 @@ const statusCodeFromDomainCode = (code: DomainErrorCode): number => {
   return 500;
 };
 
+const statusCodeFromDynamoError = (error: unknown): number | undefined => {
+  if (error instanceof ConditionalCheckFailedException || error instanceof ResourceInUseException) {
+    return 409;
+  }
+
+  if (error instanceof ResourceNotFoundException) {
+    return 404;
+  }
+
+  return undefined;
+};
+
+const toErrorResponse = (
+  request: FastifyRequest,
+  statusCode: number,
+  code: string,
+  message: string,
+  details?: ErrorDetail[]
+): ErrorResponse => {
+  return { error: { code, ...(details ? { details } : {}), message, requestId: request.id, statusCode } };
+};
+
 const sendError = (
   request: FastifyRequest,
   reply: FastifyReply,
@@ -79,11 +106,7 @@ const sendError = (
   message: string,
   details?: ErrorDetail[]
 ): void => {
-  const payload: ErrorResponse = {
-    error: { code, ...(details ? { details } : {}), message, requestId: request.id, statusCode },
-  };
-
-  reply.code(statusCode).send(payload);
+  reply.code(statusCode).send(toErrorResponse(request, statusCode, code, message, details));
 };
 
 export const registerErrorHandlers = (app: FastifyInstance): void => {
@@ -100,6 +123,22 @@ export const registerErrorHandlers = (app: FastifyInstance): void => {
       }
 
       sendError(request, reply, statusCode, code, message);
+      return;
+    }
+
+    const dynamoStatusCode = statusCodeFromDynamoError(error);
+
+    if (dynamoStatusCode !== undefined) {
+      const code = dynamoStatusCode >= 500 ? 'INTERNAL_SERVER_ERROR' : 'DYNAMO_ERROR';
+      const message = dynamoStatusCode >= 500 ? 'Internal server error' : 'DynamoDB request failed';
+
+      if (dynamoStatusCode >= 500) {
+        request.log.error({ error }, 'request failed');
+      } else {
+        request.log.info({ error }, 'request rejected');
+      }
+
+      sendError(request, reply, dynamoStatusCode, code, message);
       return;
     }
 

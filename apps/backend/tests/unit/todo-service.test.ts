@@ -40,10 +40,9 @@ describe('TodoService', () => {
     });
     const service = new TodoService(repository);
 
-    await expect(service.create({ id: 'todo-1', userId: 'user-1', title: 'Task' })).rejects.toBeInstanceOf(DomainError);
     await expect(service.create({ id: 'todo-1', userId: 'user-1', title: 'Task' })).rejects.toMatchObject({
-      code: 'ALREADY_EXISTS',
-      message: 'Todo already exists',
+      code: 'CONFLICT',
+      message: 'duplicate',
     });
   });
 

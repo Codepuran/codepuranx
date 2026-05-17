@@ -1,4 +1,5 @@
 import { buildApp } from '../../src/app.js';
+import { ConditionalCheckFailedException } from '@aws-sdk/client-dynamodb';
 import { testConfig } from '../helpers/app-test-dependencies.js';
 
 describe('Fastify app foundation', () => {
@@ -120,6 +121,23 @@ describe('Fastify app foundation', () => {
     expect(response.statusCode).toBe(500);
     expect(response.json()).toMatchObject({
       error: { code: 'INTERNAL_SERVER_ERROR', message: 'Internal server error', statusCode: 500 },
+    });
+
+    await app.close();
+  });
+
+  it('maps DynamoDB conflicts through the global error handler', async () => {
+    const app = await buildApp();
+
+    app.get('/dynamo-conflict', async () => {
+      throw new ConditionalCheckFailedException({ $metadata: {}, message: 'condition failed' });
+    });
+
+    const response = await app.inject({ method: 'GET', url: '/dynamo-conflict' });
+
+    expect(response.statusCode).toBe(409);
+    expect(response.json()).toMatchObject({
+      error: { code: 'DYNAMO_ERROR', message: 'DynamoDB request failed', statusCode: 409 },
     });
 
     await app.close();

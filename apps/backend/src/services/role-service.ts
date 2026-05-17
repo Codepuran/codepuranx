@@ -1,6 +1,5 @@
 import type { CreateRoleInput, Role, UpdateRoleInput } from '../domain/role.js';
 import { DomainError } from './errors.js';
-import { toCreateDomainError, toMutationDomainError } from './repository-errors.js';
 
 export type RoleRepositoryPort = {
   create(input: CreateRoleInput): Promise<Role>;
@@ -13,11 +12,7 @@ export class RoleService {
   constructor(private readonly roleRepository: RoleRepositoryPort) {}
 
   async create(input: CreateRoleInput): Promise<Role> {
-    try {
-      return await this.roleRepository.create(input);
-    } catch (error) {
-      throw toCreateDomainError('Role', error);
-    }
+    return this.roleRepository.create(input);
   }
 
   async getById(roleId: string): Promise<Role> {
@@ -33,30 +28,18 @@ export class RoleService {
   async update(roleId: string, input: UpdateRoleInput): Promise<Role> {
     await this.getById(roleId);
 
-    try {
-      const role = await this.roleRepository.update(roleId, input);
+    const role = await this.roleRepository.update(roleId, input);
 
-      if (!role) {
-        throw new DomainError('Role not found', 'NOT_FOUND');
-      }
-
-      return role;
-    } catch (error) {
-      if (error instanceof DomainError) {
-        throw error;
-      }
-
-      throw toMutationDomainError('Role', error);
+    if (!role) {
+      throw new DomainError('Role not found', 'NOT_FOUND');
     }
+
+    return role;
   }
 
   async delete(roleId: string): Promise<void> {
     await this.getById(roleId);
 
-    try {
-      await this.roleRepository.delete(roleId);
-    } catch (error) {
-      throw toMutationDomainError('Role', error);
-    }
+    await this.roleRepository.delete(roleId);
   }
 }
