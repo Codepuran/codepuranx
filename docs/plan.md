@@ -155,16 +155,20 @@ These decisions should be made before scaffolding so the first implementation do
 
 ## Phase 9: Authentication And RBAC
 
+This phase implements the design in `docs/auth-design.md`.
+
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 9.1 | Define v1 auth model | DEFERRED | P1 | 1.12 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.2 | Add auth plugin/hook | DEFERRED | P1 | 9.1, 3.8 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.3 | Add request principal type | DEFERRED | P1 | 9.2 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.4 | Define authorization policy model | DEFERRED | P1 | 1.13 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.5 | Define role-based access mapping | DEFERRED | P1 | 9.4 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.6 | Add authorization helper/decorator | DEFERRED | P1 | 9.2, 9.5 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.7 | Apply RBAC to CRUD routes | DEFERRED | P1 | 9.6, 10.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.8 | Add auth/RBAC tests | DEFERRED | P1 | 9.7, 12.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.1 | Add user password storage support | TODO | P1 | 7.2 | User domain, persistence, and schemas include `passwordHash`; create/update flows preserve it safely |
+| 9.2 | Add bcrypt password hashing utilities | TODO | P1 | 9.1 | Password hashing and verification utilities exist and are unit tested |
+| 9.3 | Add login request/response schemas | TODO | P1 | 1.7, 9.2 | Login body validation exists and response shape is defined |
+| 9.4 | Add auth service for credential verification | TODO | P1 | 7.7, 9.2, 9.3 | Login flow loads a user by email, verifies bcrypt, and returns a principal-friendly identity |
+| 9.5 | Add JWT signing and verification utilities | TODO | P1 | 1.12, 9.4 | JWT creation and verification are encapsulated and covered by tests |
+| 9.6 | Add auth plugin and request principal decoration | TODO | P1 | 9.5, 8.1 | Requests can expose an authenticated principal after token verification |
+| 9.7 | Add role-based authorization helper/plugin | TODO | P1 | 9.6, 9.5 | Route guards can require one or more roles and return `403` when missing |
+| 9.8 | Add login route | TODO | P1 | 9.3, 9.4, 9.5 | `POST /auth/login` returns a JWT access token on valid credentials |
+| 9.9 | Apply authentication to protected routes | TODO | P1 | 9.6, 9.7, 10.1 | Selected routes require a valid JWT and role checks where appropriate |
+| 9.10 | Add auth and RBAC tests | TODO | P1 | 9.8, 9.9, 12.1 | Unit and integration tests cover success/failure auth and authorization paths |
 
 ## Phase 10: HTTP Routes And Controllers
 

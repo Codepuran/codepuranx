@@ -18,6 +18,7 @@ export type UserRecord = BaseRecord & {
   id: string;
   email: string;
   name: string;
+  passwordHash?: string;
   roleIds: string[];
 };
 
@@ -51,6 +52,7 @@ export const userFromRecord = (record: UserRecord): User => ({
   email: record.email,
   name: record.name,
   roleIds: record.roleIds,
+  ...(record.passwordHash ? { passwordHash: record.passwordHash } : {}),
   createdAt: record.createdAt,
   updatedAt: record.updatedAt,
   version: record.version,

@@ -22,6 +22,7 @@ export class UserRepository {
       id: input.id,
       email: input.email.trim().toLowerCase(),
       name: input.name,
+      ...(input.passwordHash ? { passwordHash: input.passwordHash } : {}),
       roleIds: input.roleIds ?? [],
       createdAt: now,
       updatedAt: now,
@@ -80,6 +81,12 @@ export class UserRepository {
       names['#roleIds'] = 'roleIds';
       values[':roleIds'] = input.roleIds;
       assignments.push('#roleIds = :roleIds');
+    }
+
+    if (input.passwordHash !== undefined) {
+      names['#passwordHash'] = 'passwordHash';
+      values[':passwordHash'] = input.passwordHash;
+      assignments.push('#passwordHash = :passwordHash');
     }
 
     const response = await this.documentClient.send(

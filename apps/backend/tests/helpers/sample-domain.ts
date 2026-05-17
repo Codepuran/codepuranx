@@ -18,6 +18,7 @@ export const sampleUser = (overrides: Partial<User> = {}): User => ({
   email: 'user@example.com',
   name: 'User',
   roleIds: [],
+  ...(overrides.passwordHash ? { passwordHash: overrides.passwordHash } : {}),
   createdAt: '2026-01-01T00:00:00.000Z',
   updatedAt: '2026-01-01T00:00:00.000Z',
   version: 1,
