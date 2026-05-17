@@ -34,7 +34,6 @@ describe('repository record mappers', () => {
         entityType: 'ROLE',
         id: 'admin',
         name: 'Admin',
-        permissions: ['todo:create'],
         createdAt: '2026-01-01T00:00:00.000Z',
         updatedAt: '2026-01-01T00:00:00.000Z',
         version: 1,
@@ -42,7 +41,6 @@ describe('repository record mappers', () => {
     ).toEqual({
       id: 'admin',
       name: 'Admin',
-      permissions: ['todo:create'],
       createdAt: '2026-01-01T00:00:00.000Z',
       updatedAt: '2026-01-01T00:00:00.000Z',
       version: 1,

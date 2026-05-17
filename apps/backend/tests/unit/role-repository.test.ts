@@ -9,9 +9,9 @@ describe('RoleRepository', () => {
     const fake = new FakeDocumentClient();
     const repository = new RoleRepository(fake as unknown as DynamoDBDocumentClient, { clock, tableName: 'table' });
 
-    const role = await repository.create({ id: 'admin', name: 'Admin', permissions: ['todo:create'] });
+    const role = await repository.create({ id: 'admin', name: 'Admin' });
 
-    expect(role).toMatchObject({ id: 'admin', name: 'Admin', permissions: ['todo:create'], version: 1 });
+    expect(role).toMatchObject({ id: 'admin', name: 'Admin', version: 1 });
     expect(fake.sent[0]?.constructor.name).toBe('PutCommand');
     expect(fake.sent[0]?.input).toMatchObject({
       TableName: 'table',

@@ -16,7 +16,6 @@ export const createRoleBodySchema = {
   additionalProperties: false,
   properties: {
     name: { type: 'string', minLength: 1, maxLength: 200 },
-    permissions: { type: 'array', items: { type: 'string', minLength: 1 }, uniqueItems: true, default: [] },
   },
 } as const satisfies JSONSchema;
 
@@ -28,7 +27,6 @@ export const updateRoleBodySchema = {
   additionalProperties: false,
   properties: {
     name: { type: 'string', minLength: 1, maxLength: 200 },
-    permissions: { type: 'array', items: { type: 'string', minLength: 1 }, uniqueItems: true },
   },
 } as const satisfies JSONSchema;
 
@@ -36,12 +34,11 @@ export type UpdateRoleBody = SchemaType<typeof updateRoleBodySchema>;
 
 export const roleResponseSchema = {
   type: 'object',
-  required: ['id', 'name', 'permissions', 'createdAt', 'updatedAt', 'version'],
+  required: ['id', 'name', 'createdAt', 'updatedAt', 'version'],
   additionalProperties: false,
   properties: {
     id: { type: 'string' },
     name: { type: 'string' },
-    permissions: { type: 'array', items: { type: 'string' } },
     createdAt: timestampSchema,
     updatedAt: timestampSchema,
     version: { type: 'integer', minimum: 1 },

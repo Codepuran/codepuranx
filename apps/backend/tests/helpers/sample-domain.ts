@@ -27,7 +27,6 @@ export const sampleUser = (overrides: Partial<User> = {}): User => ({
 export const sampleRole = (overrides: Partial<Role> = {}): Role => ({
   id: 'role-1',
   name: 'Admin',
-  permissions: [],
   createdAt: '2026-01-01T00:00:00.000Z',
   updatedAt: '2026-01-01T00:00:00.000Z',
   version: 1,

@@ -23,7 +23,7 @@ export type UserRecord = BaseRecord & {
 
 export type UserEmailUniqueRecord = { pk: string; sk: string; entityType: 'USER_EMAIL'; email: string; userId: string };
 
-export type RoleRecord = BaseRecord & { entityType: 'ROLE'; id: string; name: string; permissions: string[] };
+export type RoleRecord = BaseRecord & { entityType: 'ROLE'; id: string; name: string };
 
 export type TodoRecord = BaseRecord & {
   entityType: 'TODO';
@@ -59,7 +59,6 @@ export const userFromRecord = (record: UserRecord): User => ({
 export const roleFromRecord = (record: RoleRecord): Role => ({
   id: record.id,
   name: record.name,
-  permissions: record.permissions,
   createdAt: record.createdAt,
   updatedAt: record.updatedAt,
   version: record.version,

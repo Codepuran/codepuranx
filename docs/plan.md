@@ -132,7 +132,7 @@ These decisions should be made before scaffolding so the first implementation do
 | --- | --- | --- | --- | --- | --- |
 | 7.1 | Define Todo domain model | DONE | P1 | 5.4, 6.1 | Todo type exists with status, timestamps, and version |
 | 7.2 | Define User domain model | DONE | P1 | 5.4, 6.1 | User type exists with email, roles, timestamps, and version |
-| 7.3 | Define Role domain model | DONE | P1 | 5.4, 6.1 | Role type exists with permissions, timestamps, and version |
+| 7.3 | Define Role domain model | DONE | P1 | 5.4, 6.1 | Role type exists with timestamps and version |
 | 7.4 | Define persistence record shapes | DONE | P1 | 6.2, 7.1, 7.2, 7.3 | DynamoDB record shapes exist for User, Role, Todo, and email uniqueness guard |
 | 7.5 | Add mappers between domain and persistence records | DONE | P1 | 7.4 | Repository record mappers are explicit in `src/repositories/records.ts` |
 | 7.6 | Create Todo repository | DONE | P1 | 6.7, 7.5 | Todo create/get/list-by-user/update/delete operations implemented |
@@ -160,8 +160,8 @@ These decisions should be made before scaffolding so the first implementation do
 | 9.1 | Define v1 auth model | DEFERRED | P1 | 1.12 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 | 9.2 | Add auth plugin/hook | DEFERRED | P1 | 9.1, 3.8 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 | 9.3 | Add request principal type | DEFERRED | P1 | 9.2 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.4 | Define permissions | DEFERRED | P1 | 1.13 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
-| 9.5 | Define role-to-permission mapping | DEFERRED | P1 | 9.4 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.4 | Define authorization policy model | DEFERRED | P1 | 1.13 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
+| 9.5 | Define role-based access mapping | DEFERRED | P1 | 9.4 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 | 9.6 | Add authorization helper/decorator | DEFERRED | P1 | 9.2, 9.5 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 | 9.7 | Apply RBAC to CRUD routes | DEFERRED | P1 | 9.6, 10.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |
 | 9.8 | Add auth/RBAC tests | DEFERRED | P1 | 9.7, 12.1 | Deferred for initial unauthenticated CRUD; revisit before production/Lambda exposure |

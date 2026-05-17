@@ -25,7 +25,6 @@ export class RoleRepository {
       entityType: 'ROLE',
       id: input.id,
       name: input.name,
-      permissions: input.permissions ?? [],
       createdAt: now,
       updatedAt: now,
       version: 1,
@@ -64,12 +63,6 @@ export class RoleRepository {
       names['#name'] = 'name';
       values[':name'] = input.name;
       assignments.push('#name = :name');
-    }
-
-    if (input.permissions !== undefined) {
-      names['#permissions'] = 'permissions';
-      values[':permissions'] = input.permissions;
-      assignments.push('#permissions = :permissions');
     }
 
     const response = await this.documentClient.send(

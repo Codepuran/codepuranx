@@ -28,7 +28,6 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
       const role = await app.services.role.create({
         id: randomUUID(),
         name: request.body.name,
-        ...(request.body.permissions ? { permissions: request.body.permissions } : {}),
       });
 
       return reply.code(201).send(role);

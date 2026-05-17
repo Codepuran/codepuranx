@@ -110,7 +110,7 @@ describe('CRUD routes', () => {
 
   it('creates, gets, updates, and deletes roles', async () => {
     const dependencies = createMockDependencies();
-    dependencies.services.role.create.mockResolvedValue(sampleRole({ name: 'Admin', permissions: ['todos:read'] }));
+    dependencies.services.role.create.mockResolvedValue(sampleRole({ name: 'Admin' }));
     dependencies.services.role.getById.mockResolvedValue(sampleRole({ id: 'role-1' }));
     dependencies.services.role.update.mockResolvedValue(sampleRole({ id: 'role-1', name: 'Owner' }));
     dependencies.services.role.delete.mockResolvedValue(undefined);
@@ -119,7 +119,7 @@ describe('CRUD routes', () => {
     const createResponse = await app.inject({
       method: 'POST',
       url: '/api/v1/roles',
-      payload: { name: 'Admin', permissions: ['todos:read'] },
+      payload: { name: 'Admin' },
     });
     const getResponse = await app.inject({ method: 'GET', url: '/api/v1/roles/role-1' });
     const patchResponse = await app.inject({
@@ -136,7 +136,6 @@ describe('CRUD routes', () => {
     expect(dependencies.services.role.create).toHaveBeenCalledWith({
       id: expect.any(String),
       name: 'Admin',
-      permissions: ['todos:read'],
     });
     expect(dependencies.services.role.update).toHaveBeenCalledWith('role-1', { name: 'Owner' });
     expect(dependencies.services.role.delete).toHaveBeenCalledWith('role-1');
