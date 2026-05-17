@@ -23,6 +23,7 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Create role',
         tags: ['roles'],
       },
+      preHandler: [app.authorize('admin')],
     },
     async (request, reply) => {
       const role = await app.services.role.create({
@@ -43,6 +44,7 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Get role',
         tags: ['roles'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.role.getById(request.params.roleId);
@@ -59,6 +61,7 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Update role',
         tags: ['roles'],
       },
+      preHandler: [app.authorize('admin')],
     },
     async (request) => {
       return app.services.role.update(request.params.roleId, request.body);
@@ -74,6 +77,7 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Delete role',
         tags: ['roles'],
       },
+      preHandler: [app.authorize('admin')],
     },
     async (request, reply) => {
       await app.services.role.delete(request.params.roleId);

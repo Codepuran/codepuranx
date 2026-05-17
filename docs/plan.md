@@ -164,11 +164,11 @@ This phase implements the design in `docs/auth-design.md`.
 | 9.3 | Add login request/response schemas | DONE | P1 | 1.7, 9.2 | Login body validation exists and response shape is defined |
 | 9.4 | Add auth service for credential verification | DONE | P1 | 7.7, 9.2, 9.3 | Login flow loads a user by email, verifies bcrypt, and returns a principal-friendly identity |
 | 9.5 | Add JWT signing and verification utilities | DONE | P1 | 1.12, 9.4 | JWT creation and verification are encapsulated and covered by tests |
-| 9.6 | Add auth plugin and request principal decoration | TODO | P1 | 9.5, 8.1 | Requests can expose an authenticated principal after token verification |
-| 9.7 | Add role-based authorization helper/plugin | TODO | P1 | 9.6, 9.5 | Route guards can require one or more roles and return `403` when missing |
+| 9.6 | Add auth plugin and request principal decoration | DONE | P1 | 9.5, 8.1 | Requests can expose an authenticated principal after token verification |
+| 9.7 | Add role-based authorization helper/plugin | DONE | P1 | 9.6, 9.5 | Route guards can require one or more roles and return `403` when missing |
 | 9.8 | Add login route | DONE | P1 | 9.3, 9.4, 9.5 | `POST /auth/login` returns a JWT access token on valid credentials |
-| 9.9 | Apply authentication to protected routes | TODO | P1 | 9.6, 9.7, 10.1 | Selected routes require a valid JWT and role checks where appropriate |
-| 9.10 | Add auth and RBAC tests | IN PROGRESS | P1 | 9.8, 9.9, 12.1 | Unit and integration tests cover success/failure auth and authorization paths |
+| 9.9 | Apply authentication to protected routes | DONE | P1 | 9.6, 9.7, 10.1 | Selected routes require a valid JWT and role checks where appropriate |
+| 9.10 | Add auth and RBAC tests | DONE | P1 | 9.8, 9.9, 12.1 | Unit and integration tests cover success/failure auth and authorization paths |
 
 ## Phase 10: HTTP Routes And Controllers
 

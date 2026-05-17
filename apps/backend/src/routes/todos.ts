@@ -28,6 +28,7 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Create todo',
         tags: ['todos'],
       },
+      preHandler: [app.authenticate],
     },
     async (request, reply) => {
       const todo = await app.services.todo.create({
@@ -51,6 +52,7 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         summary: 'List user todos',
         tags: ['todos'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.todo.listByUser(request.params.userId, request.query);
@@ -66,6 +68,7 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Get todo',
         tags: ['todos'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.todo.getById(request.params.userId, request.params.todoId);
@@ -82,6 +85,7 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Update todo',
         tags: ['todos'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.todo.update(request.params.userId, request.params.todoId, request.body);
@@ -97,6 +101,7 @@ export const registerTodoRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Delete todo',
         tags: ['todos'],
       },
+      preHandler: [app.authenticate],
     },
     async (request, reply) => {
       await app.services.todo.delete(request.params.userId, request.params.todoId);

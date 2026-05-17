@@ -4,14 +4,19 @@ import { createMockDependencies, testConfig } from '../helpers/app-test-dependen
 import { sampleRole, sampleTodo, sampleUser } from '../helpers/sample-domain.js';
 
 describe('CRUD routes', () => {
+  const adminToken = (app: Awaited<ReturnType<typeof buildApp>>) =>
+    app.jwt.sign({ sub: 'user-1', email: 'person@example.com', roleIds: ['admin'] }, { expiresIn: '1h' });
+
   it('creates users through the user service', async () => {
     const dependencies = createMockDependencies();
     dependencies.services.user.create.mockResolvedValue(sampleUser({ email: 'person@example.com', name: 'Person' }));
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
     const response = await app.inject({
       method: 'POST',
       url: '/api/v1/users',
+      headers: { authorization: `Bearer ${token}` },
       payload: { email: 'person@example.com', name: 'Person' },
     });
 
@@ -33,14 +38,24 @@ describe('CRUD routes', () => {
     dependencies.services.user.update.mockResolvedValue(sampleUser({ id: 'user-1', name: 'Updated' }));
     dependencies.services.user.delete.mockResolvedValue(undefined);
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
-    const getResponse = await app.inject({ method: 'GET', url: '/api/v1/users/user-1' });
+    const getResponse = await app.inject({
+      method: 'GET',
+      url: '/api/v1/users/user-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
     const patchResponse = await app.inject({
       method: 'PATCH',
       url: '/api/v1/users/user-1',
+      headers: { authorization: `Bearer ${token}` },
       payload: { name: 'Updated' },
     });
-    const deleteResponse = await app.inject({ method: 'DELETE', url: '/api/v1/users/user-1' });
+    const deleteResponse = await app.inject({
+      method: 'DELETE',
+      url: '/api/v1/users/user-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     expect(getResponse.statusCode).toBe(200);
     expect(patchResponse.statusCode).toBe(200);
@@ -60,13 +75,19 @@ describe('CRUD routes', () => {
       cursor: 'next',
     });
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
     const createResponse = await app.inject({
       method: 'POST',
       url: '/api/v1/users/user-1/todos',
+      headers: { authorization: `Bearer ${token}` },
       payload: { title: 'Task' },
     });
-    const listResponse = await app.inject({ method: 'GET', url: '/api/v1/users/user-1/todos?limit=10&cursor=abc' });
+    const listResponse = await app.inject({
+      method: 'GET',
+      url: '/api/v1/users/user-1/todos?limit=10&cursor=abc',
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     expect(createResponse.statusCode).toBe(201);
     expect(listResponse.statusCode).toBe(200);
@@ -89,14 +110,24 @@ describe('CRUD routes', () => {
     );
     dependencies.services.todo.delete.mockResolvedValue(undefined);
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
-    const getResponse = await app.inject({ method: 'GET', url: '/api/v1/users/user-1/todos/todo-1' });
+    const getResponse = await app.inject({
+      method: 'GET',
+      url: '/api/v1/users/user-1/todos/todo-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
     const patchResponse = await app.inject({
       method: 'PATCH',
       url: '/api/v1/users/user-1/todos/todo-1',
+      headers: { authorization: `Bearer ${token}` },
       payload: { status: 'completed' },
     });
-    const deleteResponse = await app.inject({ method: 'DELETE', url: '/api/v1/users/user-1/todos/todo-1' });
+    const deleteResponse = await app.inject({
+      method: 'DELETE',
+      url: '/api/v1/users/user-1/todos/todo-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     expect(getResponse.statusCode).toBe(200);
     expect(patchResponse.statusCode).toBe(200);
@@ -115,19 +146,30 @@ describe('CRUD routes', () => {
     dependencies.services.role.update.mockResolvedValue(sampleRole({ id: 'role-1', name: 'Owner' }));
     dependencies.services.role.delete.mockResolvedValue(undefined);
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
     const createResponse = await app.inject({
       method: 'POST',
       url: '/api/v1/roles',
+      headers: { authorization: `Bearer ${token}` },
       payload: { name: 'Admin' },
     });
-    const getResponse = await app.inject({ method: 'GET', url: '/api/v1/roles/role-1' });
+    const getResponse = await app.inject({
+      method: 'GET',
+      url: '/api/v1/roles/role-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
     const patchResponse = await app.inject({
       method: 'PATCH',
       url: '/api/v1/roles/role-1',
+      headers: { authorization: `Bearer ${token}` },
       payload: { name: 'Owner' },
     });
-    const deleteResponse = await app.inject({ method: 'DELETE', url: '/api/v1/roles/role-1' });
+    const deleteResponse = await app.inject({
+      method: 'DELETE',
+      url: '/api/v1/roles/role-1',
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     expect(createResponse.statusCode).toBe(201);
     expect(getResponse.statusCode).toBe(200);
@@ -147,13 +189,19 @@ describe('CRUD routes', () => {
     const dependencies = createMockDependencies();
     dependencies.services.todo.getById.mockRejectedValue(new DomainError('Todo not found', 'NOT_FOUND'));
     const app = await buildApp({ config: testConfig, dependencies });
+    const token = adminToken(app);
 
     const validationResponse = await app.inject({
       method: 'POST',
       url: '/api/v1/users',
+      headers: { authorization: `Bearer ${token}` },
       payload: { name: 'Missing Email' },
     });
-    const notFoundResponse = await app.inject({ method: 'GET', url: '/api/v1/users/user-1/todos/missing' });
+    const notFoundResponse = await app.inject({
+      method: 'GET',
+      url: '/api/v1/users/user-1/todos/missing',
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     expect(validationResponse.statusCode).toBe(400);
     expect(validationResponse.json()).toMatchObject({ error: { code: 'VALIDATION_ERROR', statusCode: 400 } });
@@ -184,6 +232,64 @@ describe('CRUD routes', () => {
     expect(response.json().tokenType).toBe('Bearer');
     expect(response.json().accessToken.split('.')).toHaveLength(3);
     expect(dependencies.services.auth.login).toHaveBeenCalledWith('person@example.com', 'secret');
+
+    await app.close();
+  });
+
+  it('rejects protected routes without a token and without the admin role', async () => {
+    const dependencies = createMockDependencies();
+    dependencies.services.user.getById.mockResolvedValue(sampleUser({ id: 'user-1' }));
+    const app = await buildApp({ config: testConfig, dependencies });
+
+    const unauthorizedResponse = await app.inject({
+      method: 'PATCH',
+      url: '/api/v1/users/user-1',
+      payload: { name: 'Updated' },
+    });
+
+    const forbiddenToken = app.jwt.sign(
+      { sub: 'user-1', email: 'person@example.com', roleIds: ['user'] },
+      { expiresIn: '1h' }
+    );
+
+    const forbiddenResponse = await app.inject({
+      method: 'DELETE',
+      url: '/api/v1/roles/role-1',
+      headers: { authorization: `Bearer ${forbiddenToken}` },
+    });
+
+    expect(unauthorizedResponse.statusCode).toBe(401);
+    expect(unauthorizedResponse.json()).toMatchObject({
+      error: { code: 'UNAUTHORIZED', statusCode: 401 },
+    });
+    expect(forbiddenResponse.statusCode).toBe(403);
+    expect(forbiddenResponse.json()).toMatchObject({
+      error: { code: 'FORBIDDEN', statusCode: 403 },
+    });
+
+    await app.close();
+  });
+
+  it('allows admin users through protected routes', async () => {
+    const dependencies = createMockDependencies();
+    dependencies.services.user.getById.mockResolvedValue(sampleUser({ id: 'user-1' }));
+    dependencies.services.user.update.mockResolvedValue(sampleUser({ id: 'user-1', name: 'Updated' }));
+    const app = await buildApp({ config: testConfig, dependencies });
+
+    const adminToken = app.jwt.sign(
+      { sub: 'user-1', email: 'person@example.com', roleIds: ['admin'] },
+      { expiresIn: '1h' }
+    );
+
+    const response = await app.inject({
+      method: 'PATCH',
+      url: '/api/v1/users/user-1',
+      headers: { authorization: `Bearer ${adminToken}` },
+      payload: { name: 'Updated' },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toMatchObject({ name: 'Updated' });
 
     await app.close();
   });

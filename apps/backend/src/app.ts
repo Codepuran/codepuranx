@@ -3,6 +3,7 @@ import fastify, { type FastifyBaseLogger, type FastifyInstance, type FastifyServ
 import jwt from '@fastify/jwt';
 import type { AppConfig } from './config/index.js';
 import { type AppDependencies, registerDependencies } from './plugins/dependencies.js';
+import { registerAuthPlugin } from './plugins/auth.js';
 import { registerErrorHandlers } from './plugins/error-handlers.js';
 import { registerHealthRoutes } from './plugins/health.js';
 import { registerOpenApi } from './plugins/openapi.js';
@@ -32,6 +33,7 @@ export const buildApp = async (options: BuildAppOptions = {}): Promise<FastifyIn
 
   if (options.config) {
     await app.register(jwt, { secret: options.config.jwt.secret });
+    await registerAuthPlugin(app);
     await registerOpenApi(app, options.config);
 
     await registerDependencies(app, {

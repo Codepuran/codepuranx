@@ -23,6 +23,7 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Create user',
         tags: ['users'],
       },
+      preHandler: [app.authorize('admin')],
     },
     async (request, reply) => {
       const user = await app.services.user.create({
@@ -45,6 +46,7 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Get user',
         tags: ['users'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.user.getById(request.params.userId);
@@ -61,6 +63,7 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Update user',
         tags: ['users'],
       },
+      preHandler: [app.authenticate],
     },
     async (request) => {
       return app.services.user.update(request.params.userId, request.body);
@@ -76,6 +79,7 @@ export const registerUserRoutes: FastifyPluginAsync = async (app) => {
         summary: 'Delete user',
         tags: ['users'],
       },
+      preHandler: [app.authorize('admin')],
     },
     async (request, reply) => {
       await app.services.user.delete(request.params.userId);
