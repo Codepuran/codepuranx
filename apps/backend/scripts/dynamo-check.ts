@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { DescribeTableCommand } from '@aws-sdk/client-dynamodb';
 import { loadConfig } from '../src/config/index.js';
 import { createDynamoDBClient } from '../src/db/client.js';

@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { CreateTableCommand, DescribeTableCommand, ResourceInUseException } from '@aws-sdk/client-dynamodb';
 import { loadConfig } from '../src/config/index.js';
 import { createDynamoDBClient } from '../src/db/client.js';

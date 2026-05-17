@@ -9,7 +9,7 @@
     "build": "swc src -d dist --copy-files --strip-leading-paths --delete-dir-on-start --config-file .swcrc",
     "dynamo:check": "tsx scripts/dynamo-check.ts",
     "dynamo:setup": "tsx scripts/dynamo-setup.ts",
-    "dev": "tsx watch src/server.ts",
+    "dev": "cross-env AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_REGION=us-east-1 tsx watch src/server.ts",
     "lint": "biome check .",
     "start": "node --enable-source-maps dist/server.js",
     "test": "jest --config jest.config.cjs --runInBand",

@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import { config as loadDotenv } from 'dotenv';
 import type { FastifyServerOptions } from 'fastify';
 
 const NODE_ENV_VALUES = ['development', 'test', 'production'] as const;
@@ -68,6 +68,9 @@ export const configSchema: Record<ConfigKey, ConfigField> = {
   JWT_EXPIRES_IN: { description: 'JWT expiration duration', required: false, default: '1h' },
   OPENAPI_ROUTE_PREFIX: { description: 'OpenAPI UI route prefix', required: false, default: '/docs' },
 };
+
+loadDotenv({ path: '.env', override: false });
+loadDotenv({ path: 'apps/backend/.env', override: false });
 
 const requiredKeys = Object.entries(configSchema)
   .filter(([, field]) => field.required)
