@@ -7,6 +7,7 @@ const createRepository = (
 ): jest.Mocked<UserRepositoryPort> => ({
   create: jest.fn<Promise<User>, Parameters<UserRepositoryPort['create']>>(),
   delete: jest.fn<Promise<void>, Parameters<UserRepositoryPort['delete']>>(),
+  getByEmail: jest.fn<Promise<User | undefined>, Parameters<UserRepositoryPort['getByEmail']>>(),
   getById: jest.fn<Promise<User | undefined>, Parameters<UserRepositoryPort['getById']>>(),
   update: jest.fn<Promise<User | undefined>, Parameters<UserRepositoryPort['update']>>(),
   ...overrides,

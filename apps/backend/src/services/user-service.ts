@@ -4,6 +4,7 @@ import { DomainError } from './errors.js';
 export type UserRepositoryPort = {
   create(input: CreateUserInput): Promise<User>;
   delete(userId: string, email: string): Promise<void>;
+  getByEmail(email: string): Promise<User | undefined>;
   getById(userId: string): Promise<User | undefined>;
   update(userId: string, input: UpdateUserInput): Promise<User | undefined>;
 };

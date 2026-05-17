@@ -1,4 +1,4 @@
-export type DomainErrorCode = 'ALREADY_EXISTS' | 'NOT_FOUND' | 'CONFLICT' | 'UNKNOWN';
+export type DomainErrorCode = 'ALREADY_EXISTS' | 'NOT_FOUND' | 'CONFLICT' | 'UNAUTHORIZED' | 'UNKNOWN';
 
 export class DomainError extends Error {
   constructor(

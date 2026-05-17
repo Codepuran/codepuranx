@@ -1,5 +1,6 @@
 import type { AppConfig } from '../../src/config/index.js';
 import type { AppDependencies } from '../../src/plugins/dependencies.js';
+import type { AuthService } from '../../src/services/auth-service.js';
 import type { RoleService } from '../../src/services/role-service.js';
 import type { TodoService } from '../../src/services/todo-service.js';
 import type { UserService } from '../../src/services/user-service.js';
@@ -18,6 +19,7 @@ export const testConfig: AppConfig = {
 };
 
 export type MockServices = {
+  auth: jest.Mocked<AuthService>;
   role: jest.Mocked<RoleService>;
   todo: jest.Mocked<TodoService>;
   user: jest.Mocked<UserService>;
@@ -25,6 +27,9 @@ export type MockServices = {
 
 export const createMockDependencies = (): AppDependencies & { services: MockServices } => {
   const services: MockServices = {
+    auth: {
+      login: jest.fn(),
+    } as unknown as jest.Mocked<AuthService>,
     role: {
       create: jest.fn(),
       delete: jest.fn(),

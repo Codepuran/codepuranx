@@ -9,10 +9,11 @@ import { UserRepository } from '../repositories/user-repository.js';
 import { RoleService } from '../services/role-service.js';
 import { TodoService } from '../services/todo-service.js';
 import { UserService } from '../services/user-service.js';
+import { AuthService } from '../services/auth-service.js';
 
 export type AppRepositories = { role: RoleRepository; todo: TodoRepository; user: UserRepository };
 
-export type AppServices = { role: RoleService; todo: TodoService; user: UserService };
+export type AppServices = { auth: AuthService; role: RoleService; todo: TodoService; user: UserService };
 
 export type AppDependencies = { dynamo: DynamoClients; repositories: AppRepositories; services: AppServices };
 
@@ -40,6 +41,7 @@ export const createAppDependencies = (config: AppConfig): AppDependencies => {
     dynamo,
     repositories,
     services: {
+      auth: new AuthService(repositories.user),
       role: new RoleService(repositories.role),
       todo: new TodoService(repositories.todo),
       user: new UserService(repositories.user),

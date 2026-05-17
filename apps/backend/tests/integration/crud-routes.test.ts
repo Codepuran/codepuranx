@@ -164,4 +164,27 @@ describe('CRUD routes', () => {
 
     await app.close();
   });
+
+  it('logs in with email and password and returns a jwt', async () => {
+    const dependencies = createMockDependencies();
+    dependencies.services.auth.login.mockResolvedValue({
+      id: 'user-1',
+      email: 'person@example.com',
+      roleIds: ['admin'],
+    });
+    const app = await buildApp({ config: testConfig, dependencies });
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/v1/auth/login',
+      payload: { email: 'person@example.com', password: 'secret' },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().tokenType).toBe('Bearer');
+    expect(response.json().accessToken.split('.')).toHaveLength(3);
+    expect(dependencies.services.auth.login).toHaveBeenCalledWith('person@example.com', 'secret');
+
+    await app.close();
+  });
 });

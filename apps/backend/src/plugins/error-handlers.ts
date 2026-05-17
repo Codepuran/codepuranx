@@ -73,6 +73,10 @@ const statusCodeFromDomainCode = (code: DomainErrorCode): number => {
     return 404;
   }
 
+  if (code === 'UNAUTHORIZED') {
+    return 401;
+  }
+
   return 500;
 };
 

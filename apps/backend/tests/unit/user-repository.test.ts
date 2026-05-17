@@ -25,4 +25,32 @@ describe('UserRepository', () => {
       ],
     });
   });
+
+  it('looks up users by email through the uniqueness record', async () => {
+    const fake = new FakeDocumentClient();
+    fake.queueResponse({
+      Item: { pk: 'USER_EMAIL#person@example.com', sk: 'UNIQUE', entityType: 'USER_EMAIL', userId: 'u1' },
+    });
+    fake.queueResponse({
+      Item: {
+        pk: 'USER#u1',
+        sk: 'PROFILE',
+        entityType: 'USER',
+        id: 'u1',
+        email: 'person@example.com',
+        name: 'Person',
+        roleIds: [],
+        createdAt: clock.now(),
+        updatedAt: clock.now(),
+        version: 1,
+      },
+    });
+
+    const repository = new UserRepository(fake as unknown as DynamoDBDocumentClient, { clock, tableName: 'table' });
+    const user = await repository.getByEmail(' Person@Example.COM ');
+
+    expect(user).toMatchObject({ id: 'u1', email: 'person@example.com', name: 'Person' });
+    expect(fake.sent[0]?.constructor.name).toBe('GetCommand');
+    expect(fake.sent[1]?.constructor.name).toBe('GetCommand');
+  });
 });

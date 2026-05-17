@@ -65,6 +65,19 @@ export class UserRepository {
     return userFromRecord(response.Item);
   }
 
+  async getByEmail(email: string): Promise<User | undefined> {
+    const normalizedEmail = email.trim().toLowerCase();
+    const response = await this.documentClient.send(
+      new GetCommand({ TableName: this.options.tableName, Key: userEmailUniqueKey(normalizedEmail) })
+    );
+
+    if (response.Item?.entityType !== 'USER_EMAIL' || typeof response.Item.userId !== 'string') {
+      return undefined;
+    }
+
+    return this.getById(response.Item.userId);
+  }
+
   async update(userId: string, input: UpdateUserInput): Promise<User | undefined> {
     const now = this.options.clock.now();
     const names: Record<string, string> = { '#updatedAt': 'updatedAt', '#version': 'version' };

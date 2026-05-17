@@ -4,6 +4,7 @@ import { type IdParams, idParamSchema } from '../schemas/common.js';
 import { registerRoleRoutes } from './roles.js';
 import { registerTodoRoutes } from './todos.js';
 import { registerUserRoutes } from './users.js';
+import { registerAuthRoutes } from './auth.js';
 
 export const registerApiRoutes: FastifyPluginAsync = async (app) => {
   app.get(
@@ -39,4 +40,5 @@ export const registerApiRoutes: FastifyPluginAsync = async (app) => {
   await app.register(registerUserRoutes);
   await app.register(registerRoleRoutes);
   await app.register(registerTodoRoutes);
+  await app.register(registerAuthRoutes);
 };
