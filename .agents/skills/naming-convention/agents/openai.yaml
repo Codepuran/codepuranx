@@ -1,0 +1,3 @@
+display_name: Naming Convention
+short_description: Apply the project's naming rules from the reference cheatsheet.
+default_prompt: Use the naming-convention skill for project-specific naming guidance. Read .context/naming-convention.md as the source of truth, then apply those rules to code, docs, tests, prompts, and generated artifacts without duplicating the cheatsheet content.
