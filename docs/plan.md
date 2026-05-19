@@ -245,6 +245,7 @@ This phase implements the design in `docs/auth-design.md`.
 | 15.5 | Ensure all protected routes have auth/RBAC | DEFERRED | P1 | 9.7, 10.8 | Deferred because Phase 9 auth/RBAC is deferred and routes are intentionally open |
 | 15.6 | Ensure errors do not leak internals | DONE | P1 | 3.5, 6.7 | 500 responses return a generic code/message; validation/domain 4xx errors remain structured |
 | 15.7 | Decide password handling scope | DEFERRED | P2 | 1.12 | Deferred because local JWT auth is deferred |
+| 15.8 | Add ownership checks for user/todo resources | DEFERRED | P1 | 9.9, 10.7, 10.8 | Protected routes should enforce `request.principal.userId` when resource scoping is required |
 
 ## Phase 16: CI Readiness
 

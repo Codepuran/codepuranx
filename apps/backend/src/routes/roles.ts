@@ -26,10 +26,7 @@ export const registerRoleRoutes: FastifyPluginAsync = async (app) => {
       preHandler: [app.authorize('admin')],
     },
     async (request, reply) => {
-      const role = await app.services.role.create({
-        id: randomUUID(),
-        name: request.body.name,
-      });
+      const role = await app.services.role.create({ id: randomUUID(), name: request.body.name });
 
       return reply.code(201).send(role);
     }

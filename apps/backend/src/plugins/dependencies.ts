@@ -6,10 +6,10 @@ import { systemClock } from '../repositories/clock.js';
 import { RoleRepository } from '../repositories/role-repository.js';
 import { TodoRepository } from '../repositories/todo-repository.js';
 import { UserRepository } from '../repositories/user-repository.js';
+import { AuthService } from '../services/auth-service.js';
 import { RoleService } from '../services/role-service.js';
 import { TodoService } from '../services/todo-service.js';
 import { UserService } from '../services/user-service.js';
-import { AuthService } from '../services/auth-service.js';
 
 export type AppRepositories = { role: RoleRepository; todo: TodoRepository; user: UserRepository };
 

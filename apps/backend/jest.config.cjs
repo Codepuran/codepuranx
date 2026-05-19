@@ -6,6 +6,7 @@ module.exports = {
   extensionsToTreatAsEsm: ['.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   moduleNameMapper: {
+    '^\\./app\\.js$': '<rootDir>/src/app.ts',
     '^\\.\\./\\.\\./src/(.*)\\.js$': '<rootDir>/src/$1.ts',
     '^\\.\\./(db|domain|repositories|schemas|services)/(.*)\\.js$': '<rootDir>/src/$1/$2.ts',
     '^\\.\\./auth/(.*)\\.js$': '<rootDir>/src/auth/$1.ts',

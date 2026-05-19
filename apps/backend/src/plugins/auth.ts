@@ -1,11 +1,7 @@
-import type { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance, FastifyPluginAsync, FastifyReply } from 'fastify';
 import fp from 'fastify-plugin';
 
-export type RequestPrincipal = {
-  email: string;
-  roleIds: string[];
-  userId: string;
-};
+export type RequestPrincipal = { email: string; roleIds: string[]; userId: string };
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -31,15 +27,11 @@ const authPlugin: FastifyPluginAsync = async (app) => {
     return error;
   };
 
-  app.decorate('authenticate', async (request, reply) => {
+  app.decorate('authenticate', async (request, _reply) => {
     try {
       const payload = await request.jwtVerify<{ sub: string; email: string; roleIds: string[] }>();
 
-      request.principal = {
-        email: payload.email,
-        roleIds: payload.roleIds,
-        userId: payload.sub,
-      };
+      request.principal = { email: payload.email, roleIds: payload.roleIds, userId: payload.sub };
     } catch {
       throw unauthorized('Invalid or missing access token');
     }

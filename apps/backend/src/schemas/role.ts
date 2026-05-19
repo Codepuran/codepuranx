@@ -14,9 +14,7 @@ export const createRoleBodySchema = {
   type: 'object',
   required: ['name'],
   additionalProperties: false,
-  properties: {
-    name: { type: 'string', minLength: 1, maxLength: 200 },
-  },
+  properties: { name: { type: 'string', minLength: 1, maxLength: 200 } },
 } as const satisfies JSONSchema;
 
 export type CreateRoleBody = SchemaType<typeof createRoleBodySchema>;
@@ -25,9 +23,7 @@ export const updateRoleBodySchema = {
   type: 'object',
   minProperties: 1,
   additionalProperties: false,
-  properties: {
-    name: { type: 'string', minLength: 1, maxLength: 200 },
-  },
+  properties: { name: { type: 'string', minLength: 1, maxLength: 200 } },
 } as const satisfies JSONSchema;
 
 export type UpdateRoleBody = SchemaType<typeof updateRoleBodySchema>;

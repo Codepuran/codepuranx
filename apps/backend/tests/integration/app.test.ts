@@ -1,5 +1,5 @@
-import { buildApp } from '../../src/app.js';
 import { ConditionalCheckFailedException } from '@aws-sdk/client-dynamodb';
+import { buildApp } from '../../src/app.js';
 import { testConfig } from '../helpers/app-test-dependencies.js';
 
 describe('Fastify app foundation', () => {

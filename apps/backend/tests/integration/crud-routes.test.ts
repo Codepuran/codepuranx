@@ -175,10 +175,7 @@ describe('CRUD routes', () => {
     expect(getResponse.statusCode).toBe(200);
     expect(patchResponse.statusCode).toBe(200);
     expect(deleteResponse.statusCode).toBe(204);
-    expect(dependencies.services.role.create).toHaveBeenCalledWith({
-      id: expect.any(String),
-      name: 'Admin',
-    });
+    expect(dependencies.services.role.create).toHaveBeenCalledWith({ id: expect.any(String), name: 'Admin' });
     expect(dependencies.services.role.update).toHaveBeenCalledWith('role-1', { name: 'Owner' });
     expect(dependencies.services.role.delete).toHaveBeenCalledWith('role-1');
 
@@ -259,13 +256,9 @@ describe('CRUD routes', () => {
     });
 
     expect(unauthorizedResponse.statusCode).toBe(401);
-    expect(unauthorizedResponse.json()).toMatchObject({
-      error: { code: 'UNAUTHORIZED', statusCode: 401 },
-    });
+    expect(unauthorizedResponse.json()).toMatchObject({ error: { code: 'UNAUTHORIZED', statusCode: 401 } });
     expect(forbiddenResponse.statusCode).toBe(403);
-    expect(forbiddenResponse.json()).toMatchObject({
-      error: { code: 'FORBIDDEN', statusCode: 403 },
-    });
+    expect(forbiddenResponse.json()).toMatchObject({ error: { code: 'FORBIDDEN', statusCode: 403 } });
 
     await app.close();
   });

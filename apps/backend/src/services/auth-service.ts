@@ -1,6 +1,6 @@
+import { verifyPassword } from '../auth/password.js';
 import type { User } from '../domain/user.js';
 import { DomainError } from './errors.js';
-import { verifyPassword } from '../auth/password.js';
 import type { UserRepositoryPort } from './user-service.js';
 
 export type AuthenticatedUser = Pick<User, 'id' | 'email' | 'roleIds'>;
@@ -11,7 +11,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<AuthenticatedUser> {
     const user = await this.userRepository.getByEmail(email);
 
-    if (!user || !user.passwordHash) {
+    if (!user?.passwordHash) {
       throw new DomainError('Invalid email or password', 'UNAUTHORIZED');
     }
 

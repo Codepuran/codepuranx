@@ -1,7 +1,7 @@
 import { hashPassword } from '../../src/auth/password.js';
 import type { User } from '../../src/domain/user.js';
-import { DomainError } from '../../src/services/errors.js';
 import { AuthService } from '../../src/services/auth-service.js';
+import { DomainError } from '../../src/services/errors.js';
 
 describe('AuthService', () => {
   const user = (overrides: Partial<User> = {}): User => ({

@@ -1,5 +1,5 @@
 import type { JSONSchema } from 'json-schema-to-ts';
-import { type SchemaType } from './common.js';
+import type { SchemaType } from './common.js';
 
 export const loginBodySchema = {
   type: 'object',
@@ -17,10 +17,7 @@ export const loginResponseSchema = {
   type: 'object',
   required: ['accessToken', 'tokenType'],
   additionalProperties: false,
-  properties: {
-    accessToken: { type: 'string' },
-    tokenType: { type: 'string', const: 'Bearer' },
-  },
+  properties: { accessToken: { type: 'string' }, tokenType: { type: 'string', const: 'Bearer' } },
 } as const satisfies JSONSchema;
 
 export type LoginResponse = SchemaType<typeof loginResponseSchema>;

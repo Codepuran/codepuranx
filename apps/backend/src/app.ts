@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto';
-import fastify, { type FastifyBaseLogger, type FastifyInstance, type FastifyServerOptions } from 'fastify';
 import jwt from '@fastify/jwt';
+import fastify, { type FastifyBaseLogger, type FastifyInstance, type FastifyServerOptions } from 'fastify';
 import type { AppConfig } from './config/index.js';
-import { type AppDependencies, registerDependencies } from './plugins/dependencies.js';
 import { registerAuthPlugin } from './plugins/auth.js';
+import { type AppDependencies, registerDependencies } from './plugins/dependencies.js';
 import { registerErrorHandlers } from './plugins/error-handlers.js';
 import { registerHealthRoutes } from './plugins/health.js';
 import { registerOpenApi } from './plugins/openapi.js';
@@ -31,9 +31,10 @@ export const buildApp = async (options: BuildAppOptions = {}): Promise<FastifyIn
 
   registerRequestContext(app);
 
+  await registerAuthPlugin(app);
+
   if (options.config) {
     await app.register(jwt, { secret: options.config.jwt.secret });
-    await registerAuthPlugin(app);
     await registerOpenApi(app, options.config);
 
     await registerDependencies(app, {

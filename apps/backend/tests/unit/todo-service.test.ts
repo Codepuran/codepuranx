@@ -1,6 +1,5 @@
 import { RepositoryError } from '../../src/db/errors.js';
 import type { Todo } from '../../src/domain/todo.js';
-import { DomainError } from '../../src/services/errors.js';
 import { type TodoRepositoryPort, TodoService } from '../../src/services/todo-service.js';
 import { sampleTodo } from '../helpers/sample-domain.js';
 

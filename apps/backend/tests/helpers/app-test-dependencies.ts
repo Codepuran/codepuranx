@@ -27,9 +27,7 @@ export type MockServices = {
 
 export const createMockDependencies = (): AppDependencies & { services: MockServices } => {
   const services: MockServices = {
-    auth: {
-      login: jest.fn(),
-    } as unknown as jest.Mocked<AuthService>,
+    auth: { login: jest.fn() } as unknown as jest.Mocked<AuthService>,
     role: {
       create: jest.fn(),
       delete: jest.fn(),

@@ -1,10 +1,10 @@
 import type { FastifyPluginAsync } from 'fastify';
 import { type ApiInfoResponse, apiInfoResponseSchema } from '../schemas/api.js';
 import { type IdParams, idParamSchema } from '../schemas/common.js';
+import { registerAuthRoutes } from './auth.js';
 import { registerRoleRoutes } from './roles.js';
 import { registerTodoRoutes } from './todos.js';
 import { registerUserRoutes } from './users.js';
-import { registerAuthRoutes } from './auth.js';
 
 export const registerApiRoutes: FastifyPluginAsync = async (app) => {
   app.get(

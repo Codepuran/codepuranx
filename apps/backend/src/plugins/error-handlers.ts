@@ -1,9 +1,9 @@
-import type { ErrorObject } from 'ajv';
 import {
   ConditionalCheckFailedException,
   ResourceInUseException,
   ResourceNotFoundException,
 } from '@aws-sdk/client-dynamodb';
+import type { ErrorObject } from 'ajv';
 import type { FastifyError, FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { type DomainErrorCode, isDomainError } from '../services/errors.js';
 
