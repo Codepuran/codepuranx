@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "projectType": "application",
+  "root": "apps/backend",
+  "sourceRoot": "apps/backend/src",
+  "targets": {
+    "build": { "command": "npm --workspace @codepuranx/backend run build", "outputs": ["{projectRoot}/dist"] },
+    "dynamo-check": { "command": "npm --workspace @codepuranx/backend run dynamo:check" },
+    "dynamo-setup": { "command": "npm --workspace @codepuranx/backend run dynamo:setup" },
+    "lint": { "command": "npm --workspace @codepuranx/backend run lint" },
+    "serve": { "command": "npm --workspace @codepuranx/backend run dev" },
+    "start": { "command": "npm --workspace @codepuranx/backend run start", "dependsOn": ["build"] },
+    "test": {
+      "command": "npm --workspace @codepuranx/backend run test",
+      "outputs": ["{workspaceRoot}/coverage/apps/backend"]
+    },
+    "test-coverage": {
+      "command": "npm --workspace @codepuranx/backend run test:coverage",
+      "outputs": ["{workspaceRoot}/coverage/apps/backend"]
+    },
+    "typecheck": { "command": "npm --workspace @codepuranx/backend run typecheck" }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "codepuranx",
+  "version": "1.0.0",
+  "private": true,
+  "description": "This repository will contain a Fastify-based TypeScript API designed for high performance, DynamoDB persistence, and AWS Lambda readiness.",
+  "type": "module",
+  "directories": { "doc": "docs" },
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "build": "nx build backend",
+    "check": "nx run-many -t typecheck lint test build",
+    "dynamo:check": "nx run backend:dynamo-check",
+    "dynamo:setup": "nx run backend:dynamo-setup",
+    "dev": "nx serve backend",
+    "format": "biome format --write .",
+    "lint": "nx lint backend",
+    "start": "nx run backend:start",
+    "test": "nx test backend",
+    "test:coverage": "nx run backend:test-coverage",
+    "typecheck": "nx typecheck backend"
+  },
+  "engines": { "node": ">=24 <25", "npm": ">=11" },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": { "@biomejs/biome": "^2.4.14", "cross-env": "^10.1.0", "nx": "^22.7.1" }
+}

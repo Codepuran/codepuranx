@@ -1,0 +1,7 @@
+interface:
+  display_name: "Unit Tests"
+  short_description: "Write and fix backend unit tests"
+  default_prompt: "Use $unit-tests to write or fix backend unit tests for the target file, module, or uncommitted code, keeping correctness above coverage."
+
+policy:
+  allow_implicit_invocation: true

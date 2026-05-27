@@ -102,7 +102,7 @@ This is the initial laundry list for the project. It is intentionally not a fina
   - Cognito or other identity provider later.
   - Local/dev auth mode.
 - Add RBAC support.
-- Define simple roles and permissions for first version.
+- Define simple roles for first version.
 - Decide where authorization checks live:
   - Route hooks.
   - Decorators.
@@ -308,4 +308,3 @@ This is the initial laundry list for the project. It is intentionally not a fina
 - Microservices split.
 - Advanced observability stack.
 - Admin UI.
-

@@ -26,13 +26,10 @@ pnpm-debug.log*
 
 # Local caches
 .cache/
+.nx/
 .turbo/
 .eslintcache
 
 # OS and editor files
 .DS_Store
 .idea/
-.vscode/
-
-# Codex local metadata
-.codex/

@@ -1,0 +1,47 @@
+{
+  "name": "@codepuranx/backend",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "swc src -d dist --copy-files --strip-leading-paths --delete-dir-on-start --config-file .swcrc",
+    "dynamo:check": "tsx scripts/dynamo-check.ts",
+    "dynamo:setup": "tsx scripts/dynamo-setup.ts",
+    "onboard:admin": "tsx scripts/onboard-admin.ts",
+    "dev": "cross-env AWS_ACCESS_KEY_ID=dummy AWS_SECRET_ACCESS_KEY=dummy AWS_REGION=us-east-1 tsx watch src/server.ts",
+    "lint": "biome check .",
+    "start": "node --enable-source-maps dist/server.js",
+    "test": "jest --config jest.config.cjs --runInBand",
+    "test:coverage": "jest --config jest.config.cjs --runInBand --coverage",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1045.0",
+    "@aws-sdk/lib-dynamodb": "^3.1045.0",
+    "@fastify/aws-lambda": "^6.4.0",
+    "@fastify/helmet": "^13.0.2",
+    "@fastify/jwt": "^10.0.0",
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.6",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "fastify": "~5.8.0",
+    "fastify-plugin": "^5.1.0",
+    "pino": "^10.3.1",
+    "pino-roll": "^4.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
+    "@swc/cli": "^0.8.1",
+    "@swc/core": "^1.15.33",
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.12.3",
+    "jest": "^29.7.0",
+    "json-schema-to-ts": "^3.1.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
