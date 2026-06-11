@@ -13,6 +13,7 @@ Following tools are available as part of the CLI
 - gh (Github CLI)
 - uv
 - pyenv with virtualenv (You can install anypython version of your choice)
+- nx (This is Monorepo managed with NX)
 
 
 ### Log Analysis
