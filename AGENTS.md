@@ -36,6 +36,14 @@ To optimize token usage and maintain a clean context, files are categorized into
 - **What:** Pending tasks, known issues, technical debt, and future roadmap items.
 - **Pull When:** Planning tasks, checking for known bugs, or looking at outstanding technical debt.
 
+### [performance-checklist-frontend.md](@.context/references/performance-checklist-frontend.md)
+- **What:** Frontend performance checklist, Core Web Vitals targets, TTFB diagnosis, measurement commands, and common anti-patterns.
+- **Pull When:** Reviewing or tuning frontend performance, rendering, bundle size, images, fonts, or interaction latency.
+
+### [performance-checklist-backend.md](@.context/references/performance-checklist-backend.md)
+- **What:** Backend performance checklist covering database, API, and infrastructure concerns.
+- **Pull When:** Reviewing or tuning backend latency, query performance, caching, throughput, or deployment topology.
+
 ---
 
 ## Safety & Operational Rules

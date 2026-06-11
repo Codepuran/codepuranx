@@ -1,15 +1,6 @@
-# Performance Checklist
+# Performance Checklist - Frontend
 
-Quick reference checklist for web application performance. Use alongside the `performance-optimization` skill.
-
-## Table of Contents
-
-- [Core Web Vitals Targets](#core-web-vitals-targets)
-- [TTFB Diagnosis](#ttfb-diagnosis)
-- [Frontend Checklist](#frontend-checklist)
-- [Backend Checklist](#backend-checklist)
-- [Measurement Commands](#measurement-commands)
-- [Common Anti-Patterns](#common-anti-patterns)
+Quick reference checklist for frontend and shared web performance.
 
 ## Core Web Vitals Targets
 
@@ -83,28 +74,6 @@ When TTFB is slow (> 800ms), check each component in DevTools Network waterfall:
 - [ ] Off-screen sections use `content-visibility: auto` with `contain-intrinsic-size` to skip layout/paint of non-visible areas
 - [ ] No `unload` event handlers and no `Cache-Control: no-store` on HTML responses — preserves back/forward cache (bfcache) eligibility
 
-## Backend Checklist
-
-### Database
-- [ ] No N+1 query patterns (use eager loading / joins)
-- [ ] Queries have appropriate indexes
-- [ ] List endpoints paginated (never `SELECT * FROM table`)
-- [ ] Connection pooling configured
-- [ ] Slow query logging enabled
-
-### API
-- [ ] Response times < 200ms (p95)
-- [ ] No synchronous heavy computation in request handlers
-- [ ] Bulk operations instead of loops of individual calls
-- [ ] Response compression (gzip/brotli)
-- [ ] Appropriate caching (in-memory, Redis, CDN)
-
-### Infrastructure
-- [ ] CDN for static assets
-- [ ] Server located close to users (or edge deployment)
-- [ ] Horizontal scaling configured (if needed)
-- [ ] Health check endpoint for load balancer
-
 ## Measurement Commands
 
 ### INP field data and DevTools workflow
@@ -143,9 +112,6 @@ onINP(({ value, attribution }) => {
 
 | Anti-Pattern | Impact | Fix |
 |---|---|---|
-| N+1 queries | Linear DB load growth | Use joins, includes, or batch loading |
-| Unbounded queries | Memory exhaustion, timeouts | Always paginate, add LIMIT |
-| Missing indexes | Slow reads as data grows | Add indexes for filtered/sorted columns |
 | Layout thrashing | Jank, dropped frames | Batch DOM reads, then batch writes |
 | Unoptimized images | Slow LCP, wasted bandwidth | Use WebP, responsive sizes, lazy load |
 | Large bundles | Slow Time to Interactive | Code split, tree shake, audit deps |
