@@ -1,23 +1,10 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# General build and test artifacts
 build/
-.tsbuildinfo
 *.tsbuildinfo
-
-# Test and coverage output
-coverage/
 .nyc_output/
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
 # Environment files
 .env
@@ -29,6 +16,12 @@ pnpm-debug.log*
 .nx/
 .turbo/
 .eslintcache
+
+# Package-manager diagnostics
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # OS and editor files
 .DS_Store

@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 45% 98%;
+    --foreground: 235 22% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 235 22% 15%;
+    --primary: 255 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 250 35% 94%;
+    --secondary-foreground: 235 22% 15%;
+    --muted: 250 25% 94%;
+    --muted-foreground: 237 12% 44%;
+    --accent: 89 49% 48%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 324 73% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 246 24% 88%;
+    --input: 246 24% 84%;
+    --ring: 255 91% 60%;
+    --shadow: 235 22% 15%;
+  }
+  .dark {
+    --background: 225 40% 9%;
+    --foreground: 220 33% 96%;
+    --card: 224 35% 13%;
+    --card-foreground: 220 33% 96%;
+    --primary: 229 77% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 223 29% 18%;
+    --secondary-foreground: 220 33% 96%;
+    --muted: 223 29% 18%;
+    --muted-foreground: 218 17% 68%;
+    --accent: 192 100% 66%;
+    --accent-foreground: 225 40% 9%;
+    --destructive: 0 84% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 223 27% 24%;
+    --input: 223 27% 27%;
+    --ring: 192 100% 66%;
+    --shadow: 225 40% 2%;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply min-h-screen bg-background font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .backdrop-mesh {
+    background:
+      radial-gradient(circle at 12% 5%, hsl(var(--primary) / 0.15), transparent 30rem),
+      radial-gradient(circle at 88% 25%, hsl(var(--accent) / 0.12), transparent 26rem), hsl(var(--background));
+  }
+  .glass-panel {
+    @apply border border-border/80 bg-card/65 backdrop-blur-xl;
+  }
+}

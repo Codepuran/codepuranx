@@ -1,0 +1,14 @@
+# Compiled server output
+dist/
+
+# Jest output
+coverage/
+
+# Runtime logs
+logs/
+*.log
+
+# Backend environment overrides (keep the template)
+.env
+.env.*
+!.env.example

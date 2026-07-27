@@ -8,6 +8,7 @@
   "javascript": {
     "formatter": { "expand": "never", "quoteStyle": "single", "semicolons": "always", "trailingCommas": "es5" }
   },
+  "css": { "parser": { "tailwindDirectives": true } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -76,6 +77,7 @@
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "overrides": [
-    { "includes": ["apps/backend/scripts/**/*"], "linter": { "rules": { "suspicious": { "noConsole": "off" } } } }
+    { "includes": ["apps/backend/scripts/**/*"], "linter": { "rules": { "suspicious": { "noConsole": "off" } } } },
+    { "includes": ["apps/frontend/**/*.css"], "linter": { "rules": { "suspicious": { "noUnknownAtRules": "off" } } } }
   ]
 }
