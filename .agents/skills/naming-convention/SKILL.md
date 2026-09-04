@@ -1,15 +1,11 @@
 ---
-
-## name: naming-convention  
+name: naming-convention
 description: Use when naming variables, functions, classes, files, booleans, collections, and API/domain terms in this project. Applies the project-specific naming rules from the reference cheatsheet and should be used whenever Codex / Agent needs to choose, review, normalize, or enforce names in code, docs, tests, prompts, or generated artifacts.
-
-# Naming Convention
-
-Use this skill when you need project naming guidance.
+---
 
 ## Reference
 
-- Read `[.context/naming-convention.md](/Users/aviksh/CodeWorld/codepuranx/.context/naming-convention.md)` for the project rules.
+- Read `[.context/naming-convention.md](@.context/naming-convention.md)` for the project rules.
 - Treat that file as the source of truth.
 - Do not restate the full cheatsheet here unless you need a tiny reminder in a response.
 

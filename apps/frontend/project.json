@@ -1,0 +1,18 @@
+{
+  "name": "frontend",
+  "projectType": "application",
+  "root": "apps/frontend",
+  "sourceRoot": "apps/frontend/src",
+  "targets": {
+    "build": { "command": "npm --workspace @codepuranx/frontend run build", "outputs": ["{projectRoot}/dist"] },
+    "lint": { "command": "npm --workspace @codepuranx/frontend run lint" },
+    "serve": { "command": "npm --workspace @codepuranx/frontend run dev" },
+    "storybook": { "command": "npm --workspace @codepuranx/frontend run storybook" },
+    "storybook:build": {
+      "command": "npm --workspace @codepuranx/frontend run storybook:build",
+      "outputs": ["{projectRoot}/storybook-static"]
+    },
+    "test": { "command": "npm --workspace @codepuranx/frontend run test" },
+    "typecheck": { "command": "npm --workspace @codepuranx/frontend run typecheck" }
+  }
+}

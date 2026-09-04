@@ -1,0 +1,16 @@
+# Vite and production bundles
+dist/
+.vite/
+
+# Storybook output
+storybook-static/
+
+# Test output
+coverage/
+playwright-report/
+test-results/
+
+# Frontend environment overrides (keep the template)
+.env
+.env.*
+!.env.example

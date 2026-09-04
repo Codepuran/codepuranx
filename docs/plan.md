@@ -189,12 +189,12 @@ This phase implements the design in `docs/auth-design.md`.
 
 | ID | Task | Status | Priority | Depends On | Acceptance Check |
 | --- | --- | --- | --- | --- | --- |
-| 11.1 | Add Lambda handler entrypoint | DEFERRED | P1 | 3.1, 1.10 | Deferred until after local CRUD/manual testing |
-| 11.2 | Ensure app initialization is reusable across invocations | DEFERRED | P1 | 11.1 | Deferred until after local CRUD/manual testing |
-| 11.3 | Confirm Fastify adapter package and behavior | DEFERRED | P1 | 1.1, 11.1 | Deferred until after local CRUD/manual testing |
-| 11.4 | Ensure DynamoDB client reuse across invocations | DEFERRED | P1 | 6.3, 11.1 | Deferred until after local CRUD/manual testing |
-| 11.5 | Add Lambda-focused build output | DEFERRED | P1 | 1.10, 11.1 | Deferred until after local CRUD/manual testing |
-| 11.6 | Add Lambda handler tests | DEFERRED | P2 | 11.1, 12.1 | Deferred until after local CRUD/manual testing |
+| 11.1 | Add Lambda handler entrypoint | DONE | P1 | 3.1, 1.10 | `apps/backend/src/lambda.ts` exports a handler and `apps/backend/src/index.ts` re-exports it |
+| 11.2 | Ensure app initialization is reusable across invocations | DONE | P1 | 11.1 | `apps/backend/src/lambda.ts` caches the built handler so Fastify initialization runs once per runtime |
+| 11.3 | Confirm Fastify adapter package and behavior | DONE | P1 | 1.1, 11.1 | `@fastify/aws-lambda` is installed and used to adapt the Fastify app in `apps/backend/src/lambda.ts` |
+| 11.4 | Ensure DynamoDB client reuse across invocations | DONE | P1 | 6.3, 11.1 | The cached Lambda handler reuses the same app and DynamoDB clients across invocations |
+| 11.5 | Add Lambda-focused build output | DONE | P1 | 1.10, 11.1 | SWC builds `src/lambda.ts` into `dist/lambda.js`, and the package exports the Lambda entrypoint |
+| 11.6 | Add Lambda handler tests | DONE | P2 | 11.1, 12.1 | `apps/backend/tests/integration/lambda.test.ts` covers API Gateway-style Lambda execution |
 
 ## Phase 12: Testing Foundation
 
@@ -253,7 +253,7 @@ This phase implements the design in `docs/auth-design.md`.
 | --- | --- | --- | --- | --- | --- |
 | 16.1 | Decide CI provider or keep CI config deferred | DISCUSS | P2 | 13.6 | CI direction recorded |
 | 16.2 | Add CI workflow if desired | TODO | P2 | 16.1, 13.6 | CI runs install, lint, typecheck, tests, build |
-| 16.3 | Ensure tests do not require real AWS resources | TODO | P1 | 12.6 | Tests run against local/mocked DynamoDB |
+| 16.3 | Ensure tests do not require real AWS resources | DONE | P1 | 12.6 | Unit and integration tests use fake dependencies or mocked clients, and `npm run check` passes without AWS access |
 | 16.4 | Document integration test prerequisites | TODO | P2 | 12.6 | Required local services are clear |
 
 ## Phase 17: Final Verification Before First Implementation Milestone
